@@ -11,7 +11,7 @@ Original App Design FINAL Project - README Template
 
 ## Overview
 ### Description APP NAME IS PURPLED 
-]
+
 
 Purpled is a music software that gives you access to any tune on the internet, from the biggest songs to the newest releases. Contribute to the success of both new and experienced artists. Every like, play, remark, and repost reverberates, establishing a creator's reputation, motivating them, and expanding their reach. So whether you're driving, working out, partying, or resting, you'll always have the great music at your fingertips.
 
