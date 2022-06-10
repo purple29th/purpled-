@@ -1,7 +1,7 @@
 Original App Design FINAL Project - README Template
-===
 
-**APP NAME** - ****- PURPLED
+
+**APP NAME**  **- PURPLED
 
 ## Table of Contents
 1. [Overview](#Overview)
