@@ -1,1 +1,103 @@
-# purpled-
+Original App Design FINAL Project - README Template
+===
+
+APP NAME - ****- PURPLED
+
+## Table of Contents
+1. [Overview](#Overview)
+1. [Product Spec](#Product-Spec)
+1. [Wireframes](#Wireframes)
+2. [Schema](#Schema)
+
+## Overview
+### Description
+[Description of your app]
+
+Purpled is a music software that gives you access to any tune on the internet, from the biggest songs to the newest releases. Contribute to the success of both new and experienced artists. Every like, play, remark, and repost reverberates, establishing a creator's reputation, motivating them, and expanding their reach. So whether you're driving, working out, partying, or resting, you'll always have the great music at your fingertips.
+
+### App Evaluation
+[Evaluation of your app across the following attributes]
+
+- **Category: 
+- Music Streaming / Socials 
+- 
+- **Mobile:** This software would be primarily designed for mobile devices, but it could also be used on a computer. While operation would not be constrained to mobile platforms, the mobile version may include additional features.
+- 
+- **Story:** analyzes various music preferences of users Get limitless access to millions of songs, curated playlists, and unique material from your favorite artists.
+- 
+- **Market:** Country, location, and plan availability and features vary. Subscriptions are free, although explicit music material is subject to age restrictions.
+- 
+- **Habit:** This software may be used as frequently or infrequently as the user desired, based on their social life and what they're seeking for.
+- 
+- **Scope:** First, the software will categorize your favorite compilations, albums, and songs according to your preferences, and then the app's scope will be expanded as an outsourcing services for submissions of music to various record companies around the world, giving everyone an equal chance to have their artistry recongnized for professional purposes.
+
+## Product Spec
+
+### 1. User Stories (Required and Optional)
+
+**Required Must-have Stories**
+
+* User log in / register to gain access
+* 
+* User mainActivity page with tabs (songs ,Artist / Genre / Albums / Playist) 
+* 
+* User profile page
+* 
+* setting and accesibility 
+* 
+**Optional Nice-to-have Stories**
+
+* Support artists - Listeners can contribute to artist finacial artistry and  purpled pays a portion of all earnings to the platform's creators.
+* 
+* Get track recommendations based on your preferences and listening behavior.
+* 
+* Follow your friends to find out what they're listening to
+* 
+* Acesss links  to send music to various social media (instagram, twitter, facebook)
+
+### 2. Screen Archetypes
+
+* Login
+* 
+   * Upon registring/ loging opening of the application the user is prompted to upload a photo and fill in information that is interesting to them and others
+   * ...
+* Selection Screen / Main Activity Screen
+* 
+   * [User is promted to the main screen called LIBRARY 
+   * 
+   * LIBRARY SCREEN CONTAINS EACH TABS -- (ALBUM, ARTISTS, PLAYLIST, GENRES, SONGS)]
+   * ...
+   * LIBRARY TABS FILTRED WITH A SERACH BUTTON
+
+
+* Settings Screen / Profile
+* 
+  PROILE SCREEN GIVES ACCESS TO SETTINGS, NAVIGATION FOR INTERFACE EDITS AND NOTIFICATION SETTINGS.
+  
+### 3. Navigation
+
+**Tab Navigation** (Tab to Screen)
+
+* Library selection
+* 
+*  Profile page
+
+*   settings 
+
+*### Optional:
+
+*   [ RECORD LABEL ACCESS]
+*   
+*   [ EXTERNAL LINK TO SOCIAL MEDIA ACCESS ]
+*   
+### Flow Navigation** (Screen to Screen)
+
+* [ Account creation if no log in is available]
+* 
+   * [ Activity goes to mainACTIVITY called LIBRARY ]]
+   * ...
+* [LIBRARY PAGE HAS TABS LISTED ( ALBUMS, PLAYLIST, SONGS, GENRES, ARTISTS)]
+* 
+   * [PROFILE TAB - SETTING IS INLUDED WITH NAVIGATIONS FOR EXTRA FEATURES ]
+   
+
