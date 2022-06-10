@@ -22,13 +22,13 @@ Purpled is a music software that gives you access to any tune on the internet, f
 - Music Streaming / Socials 
 - 
 - **Mobile:** This software would be primarily designed for mobile devices, but it could also be used on a computer. While operation would not be constrained to mobile platforms, the mobile version may include additional features.
-- 
+
 - **Story:** analyzes various music preferences of users Get limitless access to millions of songs, curated playlists, and unique material from your favorite artists.
 - 
 - **Market:** Country, location, and plan availability and features vary. Subscriptions are free, although explicit music material is subject to age restrictions.
-- 
+
 - **Habit:** This software may be used as frequently or infrequently as the user desired, based on their social life and what they're seeking for.
-- 
+ 
 - **Scope:** First, the software will categorize your favorite compilations, albums, and songs according to your preferences, and then the app's scope will be expanded as an outsourcing services for submissions of music to various record companies around the world, giving everyone an equal chance to have their artistry recongnized for professional purposes.
 
 ## Product Spec
@@ -38,35 +38,35 @@ Purpled is a music software that gives you access to any tune on the internet, f
 **Required Must-have Stories**
 
 * User log in / register to gain access
-* 
+
 * User mainActivity page with tabs (songs ,Artist / Genre / Albums / Playist) 
-* 
+ 
 * User profile page
-* 
+
 * setting and accesibility 
-* 
+ 
 **Optional Nice-to-have Stories**
 
 * Support artists - Listeners can contribute to artist finacial artistry and  purpled pays a portion of all earnings to the platform's creators.
-* 
+ 
 * Get track recommendations based on your preferences and listening behavior.
-* 
+ 
 * Follow your friends to find out what they're listening to
-* 
+ 
 * Acesss links  to send music to various social media (instagram, twitter, facebook)
 
 ### 2. Screen Archetypes
 
 * Login
-* 
+*
    * Upon registring/ loging opening of the application the user is prompted to upload a photo and fill in information that is interesting to them and others
-   * ...
+   
 * Selection Screen / Main Activity Screen
-* 
-   * [User is promted to the main screen called LIBRARY 
-   * 
-   * LIBRARY SCREEN CONTAINS EACH TABS -- (ALBUM, ARTISTS, PLAYLIST, GENRES, SONGS)]
-   * ...
+ 
+   * User is promted to the main screen called LIBRARY 
+    
+   * LIBRARY SCREEN CONTAINS EACH TABS -- (ALBUM, ARTISTS, PLAYLIST, GENRES, SONGS)
+    
    * LIBRARY TABS FILTRED WITH A SERACH BUTTON
 
 
@@ -86,18 +86,18 @@ Purpled is a music software that gives you access to any tune on the internet, f
 
 *### Optional:
 
-*   [ RECORD LABEL ACCESS]
+*    RECORD LABEL ACCESS
 *   
-*   [ EXTERNAL LINK TO SOCIAL MEDIA ACCESS ]
+*    EXTERNAL LINK TO SOCIAL MEDIA ACCESS 
 *   
 ### Flow Navigation** (Screen to Screen)
 
-* [ Account creation if no log in is available]
+*  Account creation if no log in is available
 * 
-   * [ Activity goes to mainACTIVITY called LIBRARY ]]
+   *  Activity goes to mainACTIVITY called LIBRARY 
    * ...
-* [LIBRARY PAGE HAS TABS LISTED ( ALBUMS, PLAYLIST, SONGS, GENRES, ARTISTS)]
+* LIBRARY PAGE HAS TABS LISTED ( ALBUMS, PLAYLIST, SONGS, GENRES, ARTISTS
 * 
-   * [PROFILE TAB - SETTING IS INLUDED WITH NAVIGATIONS FOR EXTRA FEATURES ]
+   * PROFILE TAB - SETTING IS INLUDED WITH NAVIGATIONS FOR EXTRA FEATURES 
    
 
