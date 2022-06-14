@@ -103,6 +103,11 @@ Purpled is a music software that gives you access to any tune on the internet, f
 * LIBRARY PAGE HAS TABS LISTED ( ALBUMS, PLAYLIST, SONGS, GENRES, ARTISTS
 * 
    * PROFILE TAB - SETTING IS INLUDED WITH NAVIGATIONS FOR EXTRA FEATURES 
+
+
+WIRE FRAME 
+
+
    ![IMG_4718](https://user-images.githubusercontent.com/105090910/173666896-e63747fd-3dbe-41f9-ac21-3417c063a33c.jpg)
 
 
