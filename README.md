@@ -85,10 +85,12 @@ Purpled is a music software that gives you access to any tune on the internet, f
 *  Profile page
 
 *   settings 
+*   *  
+*   RECORD LABEL ACCESS / PUBLISH SOCIAL MEDIA
 
 *### Optional:
 
-*    RECORD LABEL ACCESS
+
 *   
 *    EXTERNAL LINK TO SOCIAL MEDIA ACCESS 
 *   
