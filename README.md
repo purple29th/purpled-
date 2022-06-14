@@ -44,6 +44,8 @@ Purpled is a music software that gives you access to any tune on the internet, f
 * User profile page
 
 * setting and accesibility 
+
+* Upload music - Publish (record label submissions and socail media publish)
  
 **Optional Nice-to-have Stories**
 
