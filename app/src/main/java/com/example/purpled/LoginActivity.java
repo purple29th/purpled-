@@ -34,12 +34,15 @@ public class LoginActivity extends AppCompatActivity {
     TextView registerLink;
     ImageButton facebook, google, twitter;
     private FirebaseAuth mAuth;
+    LocalStorage localStorage;
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        localStorage = new LocalStorage(LoginActivity.this);
 
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_pass);
@@ -97,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            localStorage.setUid(user.getUid());
                             assert user != null;
                             if(user.isEmailVerified()){
                                 Intent intent =  new Intent(LoginActivity.this, HomeActivity.class);

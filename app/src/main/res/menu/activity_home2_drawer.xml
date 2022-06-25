@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Home" />
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/ic_baseline_info_24"
+            android:title="Home" />
+        <item
+            android:id="@+id/ourservces"
+            android:icon="@drawable/ic_baseline_miscellaneous_services_24"
+            android:title="Home" />
+        <item
+            android:id="@+id/applicationform"
+            android:icon="@drawable/ic_baseline_download_24"
+            android:title="Home" />
+        <item
+            android:id="@+id/application_resources"
+            android:icon="@mipmap/application"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/activities"
+            android:icon="@drawable/ic_baseline_local_activity_24"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/pay_bills"
+            android:icon="@drawable/ic_baseline_payment_24"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/faqs"
+            android:icon="@drawable/ic_baseline_question_answer_24"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/contact"
+            android:icon="@drawable/ic_baseline_email_24"
+            android:title="Contact" />
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="Sign Out" />
+
+
+    </group>
+
+
+
+</menu>
