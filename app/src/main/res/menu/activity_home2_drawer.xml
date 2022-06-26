@@ -4,47 +4,44 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-
         <item
             android:id="@+id/home"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="Home" />
-        <item
-            android:id="@+id/about"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:title="Home" />
-        <item
-            android:id="@+id/ourservces"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:title="Home" />
-        <item
-            android:id="@+id/applicationform"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:title="Home" />
-        <item
-            android:id="@+id/application_resources"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:title="Home" />
 
         <item
-            android:id="@+id/activities"
+            android:id="@+id/albums"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="Home" />
+            android:title="Albums" />
+        <item
+            android:id="@+id/playlist"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Playlist" />
+        <item
+            android:id="@+id/songs"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Songs" />
 
         <item
-            android:id="@+id/pay_bills"
+            android:id="@+id/artist"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="Home" />
+            android:title="Artist" />
 
         <item
-            android:id="@+id/faqs"
+            android:id="@+id/upload"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="Home" />
+            android:title="Upload/ Record Label" />
 
         <item
-            android:id="@+id/contact"
+            android:id="@+id/genre"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="Contact" />
+            android:title="Genre" />
+
+        <item
+            android:id="@+id/recommendations"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Recommendations" />
+
 
         <item
             android:id="@+id/logout"
