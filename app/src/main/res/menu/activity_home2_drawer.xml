@@ -11,41 +11,41 @@
 
         <item
             android:id="@+id/albums"
-            android:icon="@drawable/ic_baseline_home_24"
+            android:icon="@mipmap/music_album"
             android:title="Albums" />
         <item
             android:id="@+id/playlist"
-            android:icon="@drawable/ic_baseline_home_24"
+            android:icon="@mipmap/playlist"
             android:title="Playlist" />
         <item
             android:id="@+id/songs"
-            android:icon="@drawable/ic_baseline_home_24"
+            android:icon="@mipmap/music_note"
             android:title="Songs" />
 
         <item
             android:id="@+id/artist"
-            android:icon="@drawable/ic_baseline_home_24"
+            android:icon="@mipmap/singer"
             android:title="Artist" />
 
         <item
             android:id="@+id/upload"
-            android:icon="@drawable/ic_baseline_home_24"
+            android:icon="@mipmap/upload"
             android:title="Upload/ Record Label" />
 
         <item
             android:id="@+id/genre"
-            android:icon="@drawable/ic_baseline_home_24"
+            android:icon="@mipmap/dj"
             android:title="Genre" />
 
         <item
             android:id="@+id/recommendations"
-            android:icon="@drawable/ic_baseline_home_24"
+            android:icon="@mipmap/quality"
             android:title="Recommendations" />
 
 
         <item
             android:id="@+id/logout"
-            android:icon="@drawable/ic_baseline_home_24"
+            android:icon="@mipmap/power"
             android:title="Sign Out" />
 
 
