@@ -33,7 +33,7 @@
         android:layout_below="@+id/home_top"
         android:layout_width="match_parent"
         android:layout_above="@id/demacator2"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/song_list_recyclerView"
