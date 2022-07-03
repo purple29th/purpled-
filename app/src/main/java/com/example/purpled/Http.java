@@ -49,12 +49,9 @@ public class Http {
             HttpURLConnection connection = (HttpURLConnection) sUrl.openConnection();
             connection.setRequestMethod(method);
             connection.setRequestProperty("Accept", "application/json");
-            connection.setRequestProperty("User-Agent", "Thunder Client (https://www.thunderclient.io)");
-            connection.setRequestProperty("Api-Auth-Key", "1234567890987654321");
+            connection.setRequestProperty("X-RapidAPI-Host", "spotify23.p.rapidapi.com");
+            connection.setRequestProperty("X-RapidAPI-Key", "e340c538bdmshc7ddbc578d1ec39p1dfb06jsnac023c693ce4");
             //connection.setRequestProperty("Api-Auth-Token", localStorage.getToken());
-            if (token){
-                connection.setRequestProperty("Api-Auth-Token", localStorage.getToken());
-            }
             if (! method.equals("GET")){
                 connection.setDoOutput(true);
             }
