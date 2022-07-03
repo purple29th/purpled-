@@ -1,108 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/black"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/home_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="5dp"
-        android:orientation="vertical">
+        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/spotify_songs"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textAlignment="center"
+            android:padding="8dp"
             android:textStyle="bold"
-            android:text="Songs"/>
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:text="Spotify Songs"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp"
-            android:background="#C8C7C7"/>
+        <!--        <RelativeLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="2dp"-->
+        <!--            android:layout_below="@+id/spotify_songs"-->
+        <!--            android:background="@color/white" />-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/songs_list"
-            android:layout_width="match_parent"
-            android:layout_margin="10dp"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
+        android:layout_below="@+id/home_top"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:elevation="10dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal"
+        android:layout_above="@id/player"
         android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/song_list_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black"
+        android:elevation="10dp"
+        android:orientation="horizontal">
+
 
         <LinearLayout
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
 
             <ImageView
+                android:id="@+id/track_img"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@mipmap/music_album"/>
+                android:background="@drawable/white_bg"
+                android:padding="4dp"
+                android:src="@mipmap/music_album" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="vertical"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/track_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Song title"/>
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="Song title"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/track_artist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="Song author"/>
+                    android:text="Song author"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
 
             </LinearLayout>
-
-
 
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:orientation="horizontal"
+            android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
 
             <ImageButton
+                android:id="@+id/play_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="7dp"
-                android:src="@drawable/ic_baseline_play_arrow_24"
-                android:background="@drawable/cirecle_bg_blk"/>
+                android:background="@drawable/circle_purple_bg"
+                android:src="@drawable/ic_play_white" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:src="@drawable/ic_baseline_queue_music_24" />
+                android:background="@drawable/circle_purple_bg"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_baseline_replay_24" />
 
         </LinearLayout>
 
