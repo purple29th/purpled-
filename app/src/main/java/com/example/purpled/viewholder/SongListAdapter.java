@@ -53,8 +53,8 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ApiPlayer.class);
-                view.getContext().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                view.getContext().startActivity(intent.putExtra("trackArtist", songListArrayList.get(position).getTrackArtist())
+                view.getContext().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .putExtra("trackArtist", songListArrayList.get(position).getTrackArtist())
                         .putExtra("trackTitle", songListArrayList.get(position).getTrackTitle())
                         .putExtra("trackDuration", songListArrayList.get(position).getTrackDuration())
                         .putExtra("trackImage", songListArrayList.get(position).getTrackImage())

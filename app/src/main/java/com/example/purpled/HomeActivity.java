@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +56,9 @@ public class HomeActivity extends AppCompatActivity
     ImageButton homePlayBtn;
     private MediaPlayer mediaPlayer;
     private ImageView songImg;
+    private RelativeLayout homeplayer;
     private String songUrl;
+    String tracktitle, trackartist, trackurl, trackimg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class HomeActivity extends AppCompatActivity
         songAuthor = findViewById(R.id.track_artist);
         songImg = findViewById(R.id.track_img);
         homePlayBtn = findViewById(R.id.play_btn);
+        homeplayer =  findViewById(R.id.player);
 
         localStorage = new LocalStorage(this);
         mediaPlayer = new MediaPlayer();
@@ -163,6 +166,11 @@ public class HomeActivity extends AppCompatActivity
                                 JSONObject response = new JSONObject(http.getResponse());
                                 JSONArray getSth = response.getJSONArray("items");
 
+//                                JSONObject objectArraytest = getSth.getJSONObject();
+//                                JSONObject trackttest = objectArraytest.getJSONObject("track");
+//                                final String mysongs = trackttest.getString("preview_url");
+//                                Toast.makeText(HomeActivity.this, mysongs, Toast.LENGTH_SHORT).show();
+
                                 for (int i = 0; i < getSth.length(); i++) {
                                     JSONObject objectArray = getSth.getJSONObject(i);
 
@@ -179,7 +187,12 @@ public class HomeActivity extends AppCompatActivity
                                     spotifytracks.setTrackTitle(track.getString("name"));
 
                                     if (i == 0){
+
+
                                         songTitle.setText(track.getString("name"));
+                                        tracktitle = track.getString("name");
+                                        trackurl =  track.getString("preview_url");
+
                                         try {
                                             mediaPlayer.setDataSource(track.getString("preview_url"));
                                             mediaPlayer.prepare();
@@ -190,6 +203,7 @@ public class HomeActivity extends AppCompatActivity
                                             if (u == 0){
                                                 JSONObject aristsname = artist.getJSONObject(u);
                                                 songAuthor.setText(aristsname.getString("name"));
+                                                trackartist = aristsname.getString("name");
                                             }
 
                                         }
@@ -198,17 +212,31 @@ public class HomeActivity extends AppCompatActivity
                                             if (a == 0){
                                                 JSONObject url = imagearray.getJSONObject(a);
                                                 Picasso.get().load(url.getString("url")).into(songImg);
+                                                trackimg = url.getString("url");
                                             }
 
                                         }
 
-                                        for (int a = 0; a < imagearray.length(); a++) {
-                                            if (a == 0){
-                                                JSONObject url = imagearray.getJSONObject(a);
-                                                songUrl = url.getString("url");
-                                            }
+//                                        for (int a = 0; a < imagearray.length(); a++) {
+//                                            if (a == 0){
+//                                                JSONObject url = imagearray.getJSONObject(a);
+//                                                songUrl = url.getString("url");
+//                                                trackurl =  url.getString("url");
+//                                            }
+//
+//                                        }
 
-                                        }
+                                        homeplayer.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                Intent intent = new Intent(HomeActivity.this, ApiPlayer.class);
+                                                startActivity(intent.putExtra("trackTitle", tracktitle)
+                                                        .putExtra("trackArtist", trackartist)
+                                                        .putExtra("trackUrl", trackurl)
+                                                        .putExtra("trackImage", trackimg));
+
+                                            }
+                                        });
                                     }
 
                                     spotifytracks.setTrackAlbumName(album.getString("name"));

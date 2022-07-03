@@ -14,6 +14,9 @@
         android:theme="@style/Theme.PURPLED"
         tools:targetApi="31">
         <activity
+            android:name=".AlbumsAcivity"
+            android:exported="false" />
+        <activity
             android:name=".ApiPlayer"
             android:exported="false" />
         <activity
