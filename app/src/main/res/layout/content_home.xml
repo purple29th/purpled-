@@ -32,7 +32,7 @@
     <RelativeLayout
         android:layout_below="@+id/home_top"
         android:layout_width="match_parent"
-        android:layout_above="@id/player"
+        android:layout_above="@id/demacator2"
         android:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -40,6 +40,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/demacator2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/player"
+        android:background="@color/white"/>
 
     <RelativeLayout
         android:id="@+id/player"
