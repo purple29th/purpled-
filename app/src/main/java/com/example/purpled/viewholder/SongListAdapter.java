@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.purpled.ApiPlayer;
 import com.example.purpled.R;
 import com.example.purpled.model.SongListClass;
 import com.squareup.picasso.Picasso;
@@ -48,7 +49,18 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
         holder.trackDuration.setText(songListArrayList.get(position).getTrackDuration());
         Picasso.get().load(songListArrayList.get(position).getTrackImage()).into(holder.trackImage);
 
-//        holder.year.setText(rogerModelArrayList.get(position).getYear());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ApiPlayer.class);
+                view.getContext().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                view.getContext().startActivity(intent.putExtra("trackArtist", songListArrayList.get(position).getTrackArtist())
+                        .putExtra("trackTitle", songListArrayList.get(position).getTrackTitle())
+                        .putExtra("trackDuration", songListArrayList.get(position).getTrackDuration())
+                        .putExtra("trackImage", songListArrayList.get(position).getTrackImage())
+                        .putExtra("trackUrl", songListArrayList.get(position).getTrackUrl()));
+            }
+        });
 
 
     }
