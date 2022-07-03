@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity
     ImageButton homePlayBtn;
     private MediaPlayer mediaPlayer;
     private ImageView songImg;
-    private RelativeLayout homeplayer;
+    private RelativeLayout homeplayer, loading;
     private String songUrl;
     String tracktitle, trackartist, trackurl, trackimg;
 
@@ -71,6 +71,7 @@ public class HomeActivity extends AppCompatActivity
         songImg = findViewById(R.id.track_img);
         homePlayBtn = findViewById(R.id.play_btn);
         homeplayer =  findViewById(R.id.player);
+        loading = findViewById(R.id.loading_container);
 
         localStorage = new LocalStorage(this);
         mediaPlayer = new MediaPlayer();
@@ -162,6 +163,7 @@ public class HomeActivity extends AppCompatActivity
                         Integer code = http.getStatusCode();
 
                         if (code == 200) {
+                            loading.setVisibility(View.GONE);
                             try {
                                 JSONObject response = new JSONObject(http.getResponse());
                                 JSONArray getSth = response.getJSONArray("items");

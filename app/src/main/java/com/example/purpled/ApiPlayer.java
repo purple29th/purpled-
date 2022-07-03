@@ -158,6 +158,18 @@ public class ApiPlayer extends AppCompatActivity {
                 seekMusicBar.setSecondaryProgress(i);
             }
         });
+
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                seekMusicBar.setProgress(0);
+//               playBtn.setBackgroundResource(R.drawable.ic_play_white);
+               songTimeStart.setText("0");
+               songTimeEnd.setText("0");
+               mediaPlayer.reset();
+               prepareMediaPlayer();
+            }
+        });
     }
 
     private void stopAudio() {
