@@ -21,6 +21,10 @@ import android.widget.Toast;
 import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ApiPlayer extends AppCompatActivity {
 
     private Button playBtn, nextBtn, prevBtn;
@@ -29,7 +33,7 @@ public class ApiPlayer extends AppCompatActivity {
     private Toolbar mToolbar;
     private MediaPlayer mediaPlayer;
     private Handler handler = new Handler();
-    private String trackUrl, trackName, trackArtist;
+    private String trackUrl, trackName, trackArtist, itemsArray;
     ImageView imageView;
     BarVisualizer barVisualizer;
     Thread updateSeekBar;
@@ -52,7 +56,9 @@ public class ApiPlayer extends AppCompatActivity {
         trackUrl = intent.getStringExtra("trackUrl");
         trackName = intent.getStringExtra("trackTitle");
         trackArtist = intent.getStringExtra("trackArtist");
+        itemsArray = intent.getStringExtra("itemsArray");
 
+        Toast.makeText(this, itemsArray.toString(), Toast.LENGTH_SHORT).show();
 
         playBtn = findViewById(R.id.playBtn);
         nextBtn = findViewById(R.id.nextbtn);
@@ -64,7 +70,7 @@ public class ApiPlayer extends AppCompatActivity {
         songTimeEnd = findViewById(R.id.song_end);
         Picasso.get().load(intent.getStringExtra("trackImage")).into(imageView);
 
-        if (mediaPlayer != null){
+        if (mediaPlayer != null) {
             mediaPlayer.start();
             mediaPlayer.release();
         }
@@ -136,11 +142,6 @@ public class ApiPlayer extends AppCompatActivity {
 //            }
 //        });
 
-
-
-
-
-
         seekMusicBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -159,17 +160,17 @@ public class ApiPlayer extends AppCompatActivity {
             }
         });
 
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                seekMusicBar.setProgress(0);
-//               playBtn.setBackgroundResource(R.drawable.ic_play_white);
-               songTimeStart.setText("0");
-               songTimeEnd.setText("0");
-               mediaPlayer.reset();
-               prepareMediaPlayer();
-            }
-        });
+//        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mediaPlayer) {
+//                seekMusicBar.setProgress(0);
+////               playBtn.setBackgroundResource(R.drawable.ic_play_white);
+//               songTimeStart.setText("0");
+//               songTimeEnd.setText("0");
+//               mediaPlayer.reset();
+//               prepareMediaPlayer();
+//            }
+//        });
     }
 
     private void stopAudio() {
@@ -181,21 +182,21 @@ public class ApiPlayer extends AppCompatActivity {
     }
 
     private void prepareMediaPlayer() {
-                try {
-                    mediaPlayer.setDataSource(trackUrl);
-                    mediaPlayer = mediaPlayer;
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
-                    updateSeekbar();
-                    songTimeEnd.setText(milliSecondsToTimer(mediaPlayer.getDuration()));
+        try {
+            mediaPlayer.setDataSource(trackUrl);
+            mediaPlayer = mediaPlayer;
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+            updateSeekbar();
+            songTimeEnd.setText(milliSecondsToTimer(mediaPlayer.getDuration()));
 
-                    int audiosessionId = mediaPlayer.getAudioSessionId();
-                    if (audiosessionId != -1) {
-                        barVisualizer.setAudioSessionId(audiosessionId);
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            int audiosessionId = mediaPlayer.getAudioSessionId();
+            if (audiosessionId != -1) {
+                barVisualizer.setAudioSessionId(audiosessionId);
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private Runnable updater = new Runnable() {

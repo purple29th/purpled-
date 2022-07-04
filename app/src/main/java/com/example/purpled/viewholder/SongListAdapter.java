@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.purpled.ApiPlayer;
+import com.example.purpled.LocalStorage;
 import com.example.purpled.R;
 import com.example.purpled.model.SongListClass;
 import com.squareup.picasso.Picasso;
@@ -27,11 +28,13 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
 
     private final LayoutInflater inflater;
     private final List<SongListClass> songListArrayList;
+    LocalStorage localStorage;
 
     public SongListAdapter(Context ctx, List<SongListClass> songListArrayList){
 
         inflater = LayoutInflater.from(ctx);
         this.songListArrayList = songListArrayList;
+
     }
 
     @NonNull
@@ -48,10 +51,11 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
         holder.trackTitle.setText(songListArrayList.get(position).getTrackTitle());
         holder.trackDuration.setText(songListArrayList.get(position).getTrackDuration());
         Picasso.get().load(songListArrayList.get(position).getTrackImage()).into(holder.trackImage);
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                localStorage = new LocalStorage(view.getContext());
+
                 Intent intent = new Intent(view.getContext(), ApiPlayer.class);
                 view.getContext().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("trackArtist", songListArrayList.get(position).getTrackArtist())
@@ -59,6 +63,11 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
                         .putExtra("trackDuration", songListArrayList.get(position).getTrackDuration())
                         .putExtra("trackImage", songListArrayList.get(position).getTrackImage())
                         .putExtra("trackUrl", songListArrayList.get(position).getTrackUrl()));
+
+                localStorage.setTrackArtist(songListArrayList.get(position).getTrackArtist());
+                localStorage.setTrackImage( songListArrayList.get(position).getTrackImage());
+                localStorage.setTrackTitle(songListArrayList.get(position).getTrackTitle());
+                localStorage.setTrackUrl(songListArrayList.get(position).getTrackUrl());
             }
         });
 

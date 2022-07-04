@@ -147,6 +147,7 @@ public class HomeActivity extends AppCompatActivity
         timerString = timerString +minutes+ ":"+secondsString;
         return timerString;
     }
+    
 
     private void checkSpotify() {
         String url = "https://spotify23.p.rapidapi.com/playlist_tracks/?id=1Hz7FY5h1wbKgSm2ISJkFS&offset=0&limit=100";
@@ -156,10 +157,10 @@ public class HomeActivity extends AppCompatActivity
             public void run() {
                 Http http = new Http(HomeActivity.this, url);
                 http.send();
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         Integer code = http.getStatusCode();
 
                         if (code == 200) {
@@ -168,10 +169,25 @@ public class HomeActivity extends AppCompatActivity
                                 JSONObject response = new JSONObject(http.getResponse());
                                 JSONArray getSth = response.getJSONArray("items");
 
-//                                JSONObject objectArraytest = getSth.getJSONObject();
-//                                JSONObject trackttest = objectArraytest.getJSONObject("track");
-//                                final String mysongs = trackttest.getString("preview_url");
-//                                Toast.makeText(HomeActivity.this, mysongs, Toast.LENGTH_SHORT).show();
+                                localStorage.setTracks(response.toString());
+
+//                                ArrayList<Object> listdata = new ArrayList<Object>();
+//                                if (getSth != null){
+//                                    //Iterating JSON array
+//                                    for (int i=0;i<getSth.length();i++){
+//
+//                                        //Adding each element of JSON array into ArrayList
+//
+//                                        JSONObject track = getSth.getJSONObject(i);
+//                                        JSONObject ttf = track.getJSONObject("track");
+//                                        listdata.add(ttf);
+//                                    }
+//                                }
+//
+//                                for(int i=0; i<listdata.size(); i++) {
+//                                    //Printing each element of ArrayList
+//                                    Toast.makeText(HomeActivity.this, listdata.toString(), Toast.LENGTH_SHORT).show();
+//                                }
 
                                 for (int i = 0; i < getSth.length(); i++) {
                                     JSONObject objectArray = getSth.getJSONObject(i);
@@ -183,20 +199,22 @@ public class HomeActivity extends AppCompatActivity
 
                                     SongListClass spotifytracks = new SongListClass();
 
-
                                     spotifytracks.setTrackUrl(track.getString("preview_url"));
                                     spotifytracks.setTrackDuration(milliSecondsToTimer( Integer.parseInt(track.getString("duration_ms"))));
                                     spotifytracks.setTrackTitle(track.getString("name"));
 
                                     if (i == 0){
 
-
-                                        songTitle.setText(track.getString("name"));
+                                        localStorage.setTrackTitle(track.getString("name"));
                                         tracktitle = track.getString("name");
                                         trackurl =  track.getString("preview_url");
+                                        localStorage.setTrackUrl(track.getString("preview_url"));
+
+
+                                        songTitle.setText(localStorage.getTrackTitle());
 
                                         try {
-                                            mediaPlayer.setDataSource(track.getString("preview_url"));
+                                            mediaPlayer.setDataSource(localStorage.getTrackUrl());
                                             mediaPlayer.prepare();
                                         }catch (Exception e){
                                             Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -204,7 +222,8 @@ public class HomeActivity extends AppCompatActivity
                                         for (int u = 0; u < artist.length(); u++) {
                                             if (u == 0){
                                                 JSONObject aristsname = artist.getJSONObject(u);
-                                                songAuthor.setText(aristsname.getString("name"));
+                                                localStorage.setTrackArtist(aristsname.getString("name"));
+                                                songAuthor.setText(localStorage.getTrackArtist());
                                                 trackartist = aristsname.getString("name");
                                             }
 
@@ -213,7 +232,8 @@ public class HomeActivity extends AppCompatActivity
                                         for (int a = 0; a < imagearray.length(); a++) {
                                             if (a == 0){
                                                 JSONObject url = imagearray.getJSONObject(a);
-                                                Picasso.get().load(url.getString("url")).into(songImg);
+                                                localStorage.setTrackImage(url.getString("url"));
+                                                Picasso.get().load(localStorage.getTrackImage()).into(songImg);
                                                 trackimg = url.getString("url");
                                             }
 
@@ -232,11 +252,11 @@ public class HomeActivity extends AppCompatActivity
                                             @Override
                                             public void onClick(View view) {
                                                 Intent intent = new Intent(HomeActivity.this, ApiPlayer.class);
-                                                startActivity(intent.putExtra("trackTitle", tracktitle)
-                                                        .putExtra("trackArtist", trackartist)
-                                                        .putExtra("trackUrl", trackurl)
-                                                        .putExtra("trackImage", trackimg));
-
+                                                startActivity(intent.putExtra("trackTitle", localStorage.getTrackTitle())
+                                                        .putExtra("trackArtist", localStorage.getTrackArtist())
+                                                        .putExtra("trackUrl", localStorage.getTrackUrl())
+                                                        .putExtra("itemsArray", localStorage.getTracks())
+                                                        .putExtra("trackImage", localStorage.getTrackImage()));
                                             }
                                         });
                                     }

@@ -11,6 +11,11 @@ public class LocalStorage {
     String username;
     String auth_type;
     String uid;
+    String trackTitle;
+    String trackArtist;
+    String trackImage;
+    String trackUrl;
+    String tracks;
 
     public LocalStorage(Context context) {
         this.context = context;
@@ -60,5 +65,61 @@ public class LocalStorage {
         editor.putString("AUTH_TYPE", auth_type);
         editor.commit();
         this.auth_type = auth_type;
+    }
+
+    //track details storage
+    public String getTrackTitle() {
+        trackTitle = sharedPreferences.getString("TRACKTITLE", "");
+        return trackTitle;
+    }
+
+    public void setTrackTitle(String trackTitle) {
+        editor.putString("TRACKTITLE", trackTitle);
+        editor.commit();
+        this.trackTitle = trackTitle;
+    }
+
+    public String getTrackArtist() {
+        trackArtist = sharedPreferences.getString("TRACKARTIST", "");
+        return trackArtist;
+    }
+
+    public void setTrackArtist(String trackArtist) {
+        editor.putString("TRACKARTIST", trackArtist);
+        editor.commit();
+        this.trackArtist = trackArtist;
+    }
+
+    public String getTrackImage() {
+        trackImage = sharedPreferences.getString("TRACKIMAGE", "");
+        return trackImage;
+    }
+
+    public void setTrackImage(String trackImage) {
+        editor.putString("TRACKIMAGE", trackImage);
+        editor.commit();
+        this.trackImage = trackImage;
+    }
+
+    public String getTrackUrl() {
+        trackUrl = sharedPreferences.getString("TRACKURL", "");
+        return trackUrl;
+    }
+
+    public void setTrackUrl(String trackUrl) {
+        editor.putString("TRACKURL", trackUrl);
+        editor.commit();
+        this.trackUrl = trackUrl;
+    }
+
+    public String getTracks() {
+        tracks = sharedPreferences.getString("TRACKS", "");
+        return tracks;
+    }
+
+    public void setTracks(String tracks) {
+        editor.putString("TRACKS", tracks);
+        editor.commit();
+        this.tracks = tracks;
     }
 }
