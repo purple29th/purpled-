@@ -66,10 +66,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
                         .putExtra("trackImage", songListClasses.get(position).getTrackImage())
                         .putExtra("trackUrl", songListClasses.get(position).getTrackUrl()));
 
-                localStorage.setTrackArtist(songListClasses.get(position).getTrackArtist());
-                localStorage.setTrackImage( songListClasses.get(position).getTrackImage());
-                localStorage.setTrackTitle(songListClasses.get(position).getTrackTitle());
-                localStorage.setTrackUrl(songListClasses.get(position).getTrackUrl());
+
             }
         });
 

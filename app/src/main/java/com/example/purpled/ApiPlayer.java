@@ -32,6 +32,7 @@ public class ApiPlayer extends AppCompatActivity {
     private SeekBar seekMusicBar;
     private Toolbar mToolbar;
     static MediaPlayer mediaPlayer;
+    LocalStorage localStorage;
     private Handler handler = new Handler();
     private String trackUrl, trackName, trackArtist, itemsArray;
     ImageView imageView;
@@ -52,13 +53,19 @@ public class ApiPlayer extends AppCompatActivity {
         setContentView(R.layout.activity_api_player);
 
         Intent intent = getIntent();
+        localStorage = new LocalStorage(this);
+        localStorage.sharedPreferences.edit().clear().apply();
 
         trackUrl = intent.getStringExtra("trackUrl");
         trackName = intent.getStringExtra("trackTitle");
         trackArtist = intent.getStringExtra("trackArtist");
         itemsArray = intent.getStringExtra("itemsArray");
 
-//        Toast.makeText(this, itemsArray.toString(), Toast.LENGTH_SHORT).show();
+        localStorage.setTrackArtist(intent.getStringExtra("trackArtist"));
+        localStorage.setTrackImage( intent.getStringExtra("trackImage"));
+        localStorage.setTrackTitle(intent.getStringExtra("trackTitle"));
+        localStorage.setTrackUrl(intent.getStringExtra("trackUrl"));
+
 
         playBtn = findViewById(R.id.playBtn);
         nextBtn = findViewById(R.id.nextbtn);

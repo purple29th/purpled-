@@ -33,6 +33,11 @@
             android:title="Upload/ Record Label" />
 
         <item
+            android:id="@+id/local_music"
+            android:icon="@drawable/ic_baseline_sd_storage_24"
+            android:title="Local Music" />
+
+        <item
             android:id="@+id/genre"
             android:icon="@mipmap/dj"
             android:title="Genre" />

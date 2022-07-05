@@ -1,5 +1,7 @@
 package com.example.purpled;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,9 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,8 +26,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.purpled.model.SongListClass;
+import com.example.purpled.model.Users;
 import com.example.purpled.viewholder.SongListAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -49,13 +60,14 @@ public class HomeActivity extends AppCompatActivity
     private Toolbar mToolbar;
     List<SongListClass> songListClasses;
     private SongListAdapter spotifyAdapter;
-    TextView songTitle, songAuthor;
+    TextView songTitle, songAuthor, userName;
     RecyclerView listView;
     String[] items;
     LocalStorage localStorage;
     ImageButton homePlayBtn;
+    private static long back_pressed;
     private MediaPlayer mediaPlayer;
-    private ImageView songImg;
+    private ImageView songImg, profileImageView;
     private RelativeLayout homeplayer, loading;
     private String songUrl;
     String tracktitle, trackartist, trackurl, trackimg;
@@ -73,8 +85,21 @@ public class HomeActivity extends AppCompatActivity
         homeplayer =  findViewById(R.id.player);
         loading = findViewById(R.id.loading_container);
 
+
+
         localStorage = new LocalStorage(this);
+
         mediaPlayer = new MediaPlayer();
+        songTitle.setText(localStorage.getTrackTitle());
+        songAuthor.setText(localStorage.getTrackArtist());
+        Picasso.get().load(localStorage.getTrackImage()).into(songImg);
+        try {
+            mediaPlayer.setDataSource(localStorage.getTrackUrl());
+            mediaPlayer.prepare();
+        }catch (Exception e){
+            Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
 
         songListClasses = new ArrayList<>();
 
@@ -94,9 +119,12 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View hView = navigationView.getHeaderView(0);
+        userName = (TextView)hView.findViewById(R.id.username);
+        profileImageView = findViewById(R.id.user_profile);
 
         askuserforpermission();
-
+        userInfoDisplay( profileImageView, userName);
 
         homePlayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +135,63 @@ public class HomeActivity extends AppCompatActivity
                 }else{
                     mediaPlayer.start();
                     homePlayBtn.setImageResource(R.drawable.ic_pause);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit", Toast.LENGTH_SHORT).show();
+            back_pressed = System.currentTimeMillis();
+        }
+
+    }
+
+    private void userInfoDisplay(ImageView profileImageView, TextView userName) {
+        DocumentReference UserRef;
+        UserRef = FirebaseFirestore.getInstance().collection("Users").document(localStorage.getUid());
+
+        UserRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    if (document.exists()) {
+
+                        UserRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @SuppressLint("ResourceAsColor")
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                Users users = documentSnapshot.toObject(Users.class);
+
+                                if (users.getUsername() == null){
+                                    Log.w(TAG, "No UserName");
+                                }else{
+                                    userName.setText("@"+users.getUsername());
+                                }
+                                if (users.getImage() == null) {
+                                    Log.w(TAG, "No Profile Image");
+                                } else {
+                                    Picasso.get().load( users.getImage() ).into( profileImageView );
+                                }
+
+
+                            }
+
+                        });
+
+
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
@@ -175,24 +260,7 @@ public class HomeActivity extends AppCompatActivity
                                 //Getting Array list called items in the jsonObject(response)
                                 JSONArray getItems = response.getJSONArray("items");
 
-                                localStorage.setTracks(response.toString());
-//                                ArrayList<Object> listdata = new ArrayList<Object>();
-//                                if (getSth != null){
-//                                    //Iterating JSON array
-//                                    for (int i=0;i<getSth.length();i++){
-//
-//                                        //Adding each element of JSON array into ArrayList
-//
-//                                        JSONObject track = getSth.getJSONObject(i);
-//                                        JSONObject ttf = track.getJSONObject("track");
-//                                        listdata.add(ttf);
-//                                    }
-//                                }
-//
-//                                for(int i=0; i<listdata.size(); i++) {
-//                                    //Printing each element of ArrayList
-//                                    Toast.makeText(HomeActivity.this, listdata.toString(), Toast.LENGTH_SHORT).show();
-//                                }
+
                                 //iterating through the array list
                                 for (int i = 0; i < getItems.length(); i++) {
                                     JSONObject objectArray = getItems.getJSONObject(i);
@@ -209,27 +277,21 @@ public class HomeActivity extends AppCompatActivity
                                     spotifytracks.setTrackDuration(milliSecondsToTimer( Integer.parseInt(track.getString("duration_ms"))));
                                     spotifytracks.setTrackTitle(track.getString("name"));
 
-                                    if (i == 1){
+                                    if (i == 0){
 
-                                        localStorage.setTrackTitle(track.getString("name"));
+//                                        localStorage.setTrackTitle(track.getString("name"));
                                         tracktitle = track.getString("name");
                                         trackurl =  track.getString("preview_url");
-                                        localStorage.setTrackUrl(track.getString("preview_url"));
+//                                        localStorage.setTrackUrl(track.getString("preview_url"));
 
 
-                                        songTitle.setText(localStorage.getTrackTitle());
 
-                                        try {
-                                            mediaPlayer.setDataSource(localStorage.getTrackUrl());
-                                            mediaPlayer.prepare();
-                                        }catch (Exception e){
-                                            Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
+
                                         for (int u = 0; u < artist.length(); u++) {
                                             if (u == 0){
                                                 JSONObject aristsname = artist.getJSONObject(u);
-                                                localStorage.setTrackArtist(aristsname.getString("name"));
-                                                songAuthor.setText(localStorage.getTrackArtist());
+//                                                localStorage.setTrackArtist(aristsname.getString("name"));
+
                                                 trackartist = aristsname.getString("name");
                                             }
 
@@ -238,8 +300,7 @@ public class HomeActivity extends AppCompatActivity
                                         for (int a = 0; a < imagearray.length(); a++) {
                                             if (a == 0){
                                                 JSONObject url = imagearray.getJSONObject(a);
-                                                localStorage.setTrackImage(url.getString("url"));
-                                                Picasso.get().load(localStorage.getTrackImage()).into(songImg);
+//                                                localStorage.setTrackImage(url.getString("url"));
                                                 trackimg = url.getString("url");
                                             }
 
@@ -331,16 +392,6 @@ public class HomeActivity extends AppCompatActivity
             }
         }).start();
     }
-
-//    private void prepareMediaPlayer(String songurl){
-//        try {
-//            mediaPlayer.setDataSource(songurl);
-//            mediaPlayer.prepare();
-//            mediaPlayer.start();
-//        }catch (Exception e){
-//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
