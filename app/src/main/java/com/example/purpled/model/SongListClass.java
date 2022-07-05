@@ -37,7 +37,7 @@ public class SongListClass {
         return trackDuration;
     }
 
-    public void setTrackDuration(String trackDuration) {
+    public void ppsetTrackDuration(String trackDuration) {
         this.trackDuration = trackDuration;
     }
 
@@ -59,4 +59,6 @@ public class SongListClass {
     }
 
 
+    public void setTrackDuration(String duration_ms) {
+    }
 }
