@@ -31,7 +31,7 @@ public class ApiPlayer extends AppCompatActivity {
     private TextView songName, songTimeStart, songTimeEnd;
     private SeekBar seekMusicBar;
     private Toolbar mToolbar;
-    private MediaPlayer mediaPlayer;
+    static MediaPlayer mediaPlayer;
     private Handler handler = new Handler();
     private String trackUrl, trackName, trackArtist, itemsArray;
     ImageView imageView;
@@ -58,7 +58,7 @@ public class ApiPlayer extends AppCompatActivity {
         trackArtist = intent.getStringExtra("trackArtist");
         itemsArray = intent.getStringExtra("itemsArray");
 
-        Toast.makeText(this, itemsArray.toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, itemsArray.toString(), Toast.LENGTH_SHORT).show();
 
         playBtn = findViewById(R.id.playBtn);
         nextBtn = findViewById(R.id.nextbtn);
@@ -70,15 +70,15 @@ public class ApiPlayer extends AppCompatActivity {
         songTimeEnd = findViewById(R.id.song_end);
         Picasso.get().load(intent.getStringExtra("trackImage")).into(imageView);
 
-        if (mediaPlayer != null) {
+
+
+
+        if (mediaPlayer != null){
             mediaPlayer.start();
             mediaPlayer.release();
         }
 
-
         mediaPlayer = new MediaPlayer();
-        mediaPlayer.start();
-
 
         songName.setText(trackName + " by " + trackArtist);
 
@@ -88,13 +88,7 @@ public class ApiPlayer extends AppCompatActivity {
 //            Toast.makeText(this, "not null", Toast.LENGTH_SHORT).show();
 //        }
 //
-//        if (mediaPlayer.isPlaying()) {
-//            Toast.makeText(this, "is playing", Toast.LENGTH_SHORT).show();
-//        }else{
-//            Toast.makeText(this, "not playing", Toast.LENGTH_SHORT).show();
-//        }
-
-        stopAudio();
+//
 
         prepareMediaPlayer();
 
@@ -184,7 +178,6 @@ public class ApiPlayer extends AppCompatActivity {
     private void prepareMediaPlayer() {
         try {
             mediaPlayer.setDataSource(trackUrl);
-            mediaPlayer = mediaPlayer;
             mediaPlayer.prepare();
             mediaPlayer.start();
             updateSeekbar();

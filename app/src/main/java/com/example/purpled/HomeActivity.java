@@ -96,6 +96,8 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         askuserforpermission();
+
+
         homePlayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

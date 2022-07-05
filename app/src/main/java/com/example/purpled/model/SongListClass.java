@@ -49,7 +49,6 @@ public class SongListClass {
         this.trackTitle = trackTitle;
     }
 
-
     public String getTrackAlbumName() {
         return trackAlbumName;
     }

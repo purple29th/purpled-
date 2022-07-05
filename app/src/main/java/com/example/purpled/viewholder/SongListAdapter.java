@@ -47,8 +47,8 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.trackArtist.setText(songListClasses.get(position).getTrackArtist());
         holder.trackTitle.setText(songListClasses.get(position).getTrackTitle());
+        holder.trackArtist.setText(songListClasses.get(position).getTrackArtist());
         holder.trackDuration.setText(songListClasses.get(position).getTrackDuration());
 
         Picasso.get().load(songListClasses.get(position).getTrackImage()).into(holder.trackImage);
