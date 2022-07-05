@@ -413,6 +413,12 @@ public class HomeActivity extends AppCompatActivity
                 finish();
                 break;
 
+            case R.id.local_music:
+                Intent localmusic = new Intent(HomeActivity.this, LocalMusic.class);
+                startActivity(localmusic);
+                finish();
+                break;
+
             case R.id.logout:
                 Paper.book().destroy();
                 Intent logout = new Intent(HomeActivity.this, LoginActivity.class);
