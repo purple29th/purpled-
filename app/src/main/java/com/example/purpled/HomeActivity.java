@@ -165,12 +165,15 @@ public class HomeActivity extends AppCompatActivity
 
                         if (code == 200) {
                             loading.setVisibility(View.GONE);
+                            //Getting JSON response
                             try {
+                                //Convert http response into jsonObject
                                 JSONObject response = new JSONObject(http.getResponse());
-                                JSONArray getSth = response.getJSONArray("items");
+
+                                //Getting Array list called items in the jsonObject(response)
+                                JSONArray getItems = response.getJSONArray("items");
 
                                 localStorage.setTracks(response.toString());
-
 //                                ArrayList<Object> listdata = new ArrayList<Object>();
 //                                if (getSth != null){
 //                                    //Iterating JSON array
@@ -188,22 +191,23 @@ public class HomeActivity extends AppCompatActivity
 //                                    //Printing each element of ArrayList
 //                                    Toast.makeText(HomeActivity.this, listdata.toString(), Toast.LENGTH_SHORT).show();
 //                                }
-
-                                for (int i = 0; i < getSth.length(); i++) {
-                                    JSONObject objectArray = getSth.getJSONObject(i);
+                                //iterating through the array list
+                                for (int i = 0; i < getItems.length(); i++) {
+                                    JSONObject objectArray = getItems.getJSONObject(i);
 
                                     JSONObject track = objectArray.getJSONObject("track");
                                     JSONArray artist = track.getJSONArray("artists");
                                     JSONObject album = track.getJSONObject("album");
                                     JSONArray imagearray = album.getJSONArray("images");
 
+                                    //setting track details to SongList class
                                     SongListClass spotifytracks = new SongListClass();
 
                                     spotifytracks.setTrackUrl(track.getString("preview_url"));
                                     spotifytracks.setTrackDuration(milliSecondsToTimer( Integer.parseInt(track.getString("duration_ms"))));
                                     spotifytracks.setTrackTitle(track.getString("name"));
 
-                                    if (i == 0){
+                                    if (i == 1){
 
                                         localStorage.setTrackTitle(track.getString("name"));
                                         tracktitle = track.getString("name");
@@ -285,12 +289,6 @@ public class HomeActivity extends AppCompatActivity
                                 listView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                                 spotifyAdapter = new SongListAdapter(getApplicationContext(), songListClasses);
                                 listView.setAdapter(spotifyAdapter);
-                                listView.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-
-                                    }
-                                });
 
 
                             } catch (JSONException e) {
@@ -332,15 +330,15 @@ public class HomeActivity extends AppCompatActivity
         }).start();
     }
 
-    private void prepareMediaPlayer(String songurl){
-        try {
-            mediaPlayer.setDataSource(songurl);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        }catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
+//    private void prepareMediaPlayer(String songurl){
+//        try {
+//            mediaPlayer.setDataSource(songurl);
+//            mediaPlayer.prepare();
+//            mediaPlayer.start();
+//        }catch (Exception e){
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

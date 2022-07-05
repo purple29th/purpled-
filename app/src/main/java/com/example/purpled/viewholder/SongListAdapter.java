@@ -27,13 +27,13 @@ import java.util.Locale;
 public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyViewHolder> {
 
     private final LayoutInflater inflater;
-    private final List<SongListClass> songListArrayList;
+    private final List<SongListClass> songListClasses;
     LocalStorage localStorage;
 
-    public SongListAdapter(Context ctx, List<SongListClass> songListArrayList){
+    public SongListAdapter(Context ctx, List<SongListClass> songListClasses){
 
         inflater = LayoutInflater.from(ctx);
-        this.songListArrayList = songListArrayList;
+        this.songListClasses = songListClasses;
 
     }
 
@@ -47,10 +47,12 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.trackArtist.setText(songListArrayList.get(position).getTrackArtist());
-        holder.trackTitle.setText(songListArrayList.get(position).getTrackTitle());
-        holder.trackDuration.setText(songListArrayList.get(position).getTrackDuration());
-        Picasso.get().load(songListArrayList.get(position).getTrackImage()).into(holder.trackImage);
+        holder.trackArtist.setText(songListClasses.get(position).getTrackArtist());
+        holder.trackTitle.setText(songListClasses.get(position).getTrackTitle());
+        holder.trackDuration.setText(songListClasses.get(position).getTrackDuration());
+
+        Picasso.get().load(songListClasses.get(position).getTrackImage()).into(holder.trackImage);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,16 +60,16 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
 
                 Intent intent = new Intent(view.getContext(), ApiPlayer.class);
                 view.getContext().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .putExtra("trackArtist", songListArrayList.get(position).getTrackArtist())
-                        .putExtra("trackTitle", songListArrayList.get(position).getTrackTitle())
-                        .putExtra("trackDuration", songListArrayList.get(position).getTrackDuration())
-                        .putExtra("trackImage", songListArrayList.get(position).getTrackImage())
-                        .putExtra("trackUrl", songListArrayList.get(position).getTrackUrl()));
+                        .putExtra("trackArtist", songListClasses.get(position).getTrackArtist())
+                        .putExtra("trackTitle", songListClasses.get(position).getTrackTitle())
+                        .putExtra("trackDuration", songListClasses.get(position).getTrackDuration())
+                        .putExtra("trackImage", songListClasses.get(position).getTrackImage())
+                        .putExtra("trackUrl", songListClasses.get(position).getTrackUrl()));
 
-                localStorage.setTrackArtist(songListArrayList.get(position).getTrackArtist());
-                localStorage.setTrackImage( songListArrayList.get(position).getTrackImage());
-                localStorage.setTrackTitle(songListArrayList.get(position).getTrackTitle());
-                localStorage.setTrackUrl(songListArrayList.get(position).getTrackUrl());
+                localStorage.setTrackArtist(songListClasses.get(position).getTrackArtist());
+                localStorage.setTrackImage( songListClasses.get(position).getTrackImage());
+                localStorage.setTrackTitle(songListClasses.get(position).getTrackTitle());
+                localStorage.setTrackUrl(songListClasses.get(position).getTrackUrl());
             }
         });
 
@@ -76,7 +78,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return songListArrayList.size();
+        return songListClasses.size();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
