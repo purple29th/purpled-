@@ -91,6 +91,7 @@ public class HomeActivity extends AppCompatActivity
         localStorage = new LocalStorage(this);
 
         mediaPlayer = new MediaPlayer();
+
         if (!Objects.equals(localStorage.getTrackImage(), "")){
             songTitle.setText(localStorage.getTrackTitle());
             songAuthor.setText(localStorage.getTrackArtist());
@@ -418,7 +419,7 @@ public class HomeActivity extends AppCompatActivity
                 break;
 
             case R.id.albums:
-                Intent album = new Intent(HomeActivity.this, MainActivity.class);
+                Intent album = new Intent(HomeActivity.this, AlbumsAcivity.class);
                 startActivity(album);
                 finish();
                 break;
