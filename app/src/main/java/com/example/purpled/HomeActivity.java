@@ -48,6 +48,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.paperdb.Paper;
 
@@ -90,9 +91,12 @@ public class HomeActivity extends AppCompatActivity
         localStorage = new LocalStorage(this);
 
         mediaPlayer = new MediaPlayer();
-        songTitle.setText(localStorage.getTrackTitle());
-        songAuthor.setText(localStorage.getTrackArtist());
-        Picasso.get().load(localStorage.getTrackImage()).into(songImg);
+        if (!Objects.equals(localStorage.getTrackImage(), "")){
+            songTitle.setText(localStorage.getTrackTitle());
+            songAuthor.setText(localStorage.getTrackArtist());
+            Picasso.get().load(localStorage.getTrackImage()).into(songImg);
+        }
+
         try {
             mediaPlayer.setDataSource(localStorage.getTrackUrl());
             mediaPlayer.prepare();
@@ -410,6 +414,12 @@ public class HomeActivity extends AppCompatActivity
             case R.id.home:
                 Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
                 startActivity(intent);
+                finish();
+                break;
+
+            case R.id.albums:
+                Intent album = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(album);
                 finish();
                 break;
 
