@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +54,7 @@ import java.util.List;
 import java.util.Objects;
 
 import io.paperdb.Paper;
+import timber.log.Timber;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -67,11 +71,32 @@ public class HomeActivity extends AppCompatActivity
     LocalStorage localStorage;
     ImageButton homePlayBtn;
     private static long back_pressed;
-    private MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;
     private ImageView songImg, profileImageView;
     private RelativeLayout homeplayer, loading;
     private String songUrl;
-    String tracktitle, trackartist, trackurl, trackimg;
+    private String tracktitle, trackartist, trackurl, trackimg, recommendation = "";
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!Objects.equals(localStorage.getTrackImage(), "")) {
+            songTitle.setText(localStorage.getTrackTitle());
+            songAuthor.setText(localStorage.getTrackArtist());
+            Picasso.get().load(localStorage.getTrackImage()).into(songImg);
+        }
+
+        if (localStorage.getTrackUrl() != null) {
+            try {
+                mediaPlayer.setDataSource(localStorage.getTrackUrl());
+                mediaPlayer.prepare();
+            } catch (Exception e) {
+                Timber.tag("Try Song Url").e(e.getMessage());
+            }
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,32 +104,31 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
 
         Paper.init(this);
+        localStorage = new LocalStorage(this);
+        mediaPlayer = new MediaPlayer();
+
         songTitle = findViewById(R.id.track_title);
         songAuthor = findViewById(R.id.track_artist);
         songImg = findViewById(R.id.track_img);
         homePlayBtn = findViewById(R.id.play_btn);
-        homeplayer =  findViewById(R.id.player);
+        homeplayer = findViewById(R.id.player);
         loading = findViewById(R.id.loading_container);
 
+        recommendation = localStorage.getMyGenre();
 
 
-        localStorage = new LocalStorage(this);
-
-        mediaPlayer = new MediaPlayer();
-
-        if (!Objects.equals(localStorage.getTrackImage(), "")){
-            songTitle.setText(localStorage.getTrackTitle());
-            songAuthor.setText(localStorage.getTrackArtist());
-            Picasso.get().load(localStorage.getTrackImage()).into(songImg);
-        }
-
-        try {
-            mediaPlayer.setDataSource(localStorage.getTrackUrl());
-            mediaPlayer.prepare();
-        }catch (Exception e){
-            Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
+        homePlayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                    homePlayBtn.setImageResource(R.drawable.ic_play_white);
+                } else {
+                    mediaPlayer.start();
+                    homePlayBtn.setImageResource(R.drawable.ic_pause);
+                }
+            }
+        });
 
         songListClasses = new ArrayList<>();
 
@@ -125,24 +149,12 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View hView = navigationView.getHeaderView(0);
-        userName = (TextView)hView.findViewById(R.id.username);
+        userName = (TextView) hView.findViewById(R.id.username);
         profileImageView = findViewById(R.id.user_profile);
 
         askuserforpermission();
-        userInfoDisplay( profileImageView, userName);
+        userInfoDisplay(profileImageView, userName);
 
-        homePlayBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mediaPlayer.isPlaying()){
-                    mediaPlayer.pause();
-                    homePlayBtn.setImageResource(R.drawable.ic_play_white);
-                }else{
-                    mediaPlayer.start();
-                    homePlayBtn.setImageResource(R.drawable.ic_pause);
-                }
-            }
-        });
     }
 
     @Override
@@ -174,15 +186,15 @@ public class HomeActivity extends AppCompatActivity
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 Users users = documentSnapshot.toObject(Users.class);
 
-                                if (users.getUsername() == null){
+                                if (users.getUsername() == null) {
                                     Log.w(TAG, "No UserName");
-                                }else{
-                                    userName.setText("@"+users.getUsername());
+                                } else {
+                                    userName.setText("@" + users.getUsername());
                                 }
                                 if (users.getImage() == null) {
                                     Log.w(TAG, "No Profile Image");
                                 } else {
-                                    Picasso.get().load( users.getImage() ).into( profileImageView );
+                                    Picasso.get().load(users.getImage()).into(profileImageView);
                                 }
 
 
@@ -217,32 +229,32 @@ public class HomeActivity extends AppCompatActivity
                 }).check();
     }
 
-    private String milliSecondsToTimer(long milliSeconds){
+    private String milliSecondsToTimer(long milliSeconds) {
         String timerString = "";
         String secondsString;
 
-        int hours = (int)(milliSeconds/ (1000*60*60));
-        int minutes = (int)(milliSeconds % (1000*60*60)) / (1000*60);
-        int seconds = (int)((milliSeconds % (1000*60*60)) %(1000*60)/1000);
+        int hours = (int) (milliSeconds / (1000 * 60 * 60));
+        int minutes = (int) (milliSeconds % (1000 * 60 * 60)) / (1000 * 60);
+        int seconds = (int) ((milliSeconds % (1000 * 60 * 60)) % (1000 * 60) / 1000);
 
 
-        if (hours >0){
-            timerString = hours+ ":";
+        if (hours > 0) {
+            timerString = hours + ":";
         }
 
-        if (seconds<10){
-            secondsString = "0" +seconds;
-        }else {
-            secondsString =""+seconds;
+        if (seconds < 10) {
+            secondsString = "0" + seconds;
+        } else {
+            secondsString = "" + seconds;
         }
 
-        timerString = timerString +minutes+ ":"+secondsString;
+        timerString = timerString + minutes + ":" + secondsString;
         return timerString;
     }
-    
+
 
     private void checkSpotify() {
-        String url = "https://spotify23.p.rapidapi.com/playlist_tracks/?id=1Hz7FY5h1wbKgSm2ISJkFS&offset=0&limit=100";
+        String url = recommendation;
 
         new Thread(new Runnable() {
             @Override
@@ -279,21 +291,19 @@ public class HomeActivity extends AppCompatActivity
                                     SongListClass spotifytracks = new SongListClass();
 
                                     spotifytracks.setTrackUrl(track.getString("preview_url"));
-                                    spotifytracks.setTrackDuration(milliSecondsToTimer( Integer.parseInt(track.getString("duration_ms"))));
+                                    spotifytracks.setTrackDuration(milliSecondsToTimer(Integer.parseInt(track.getString("duration_ms"))));
                                     spotifytracks.setTrackTitle(track.getString("name"));
 
-                                    if (i == 0){
+                                    if (i == 0) {
 
 //                                        localStorage.setTrackTitle(track.getString("name"));
                                         tracktitle = track.getString("name");
-                                        trackurl =  track.getString("preview_url");
+                                        trackurl = track.getString("preview_url");
 //                                        localStorage.setTrackUrl(track.getString("preview_url"));
 
 
-
-
                                         for (int u = 0; u < artist.length(); u++) {
-                                            if (u == 0){
+                                            if (u == 0) {
                                                 JSONObject aristsname = artist.getJSONObject(u);
 //                                                localStorage.setTrackArtist(aristsname.getString("name"));
 
@@ -303,7 +313,7 @@ public class HomeActivity extends AppCompatActivity
                                         }
 
                                         for (int a = 0; a < imagearray.length(); a++) {
-                                            if (a == 0){
+                                            if (a == 0) {
                                                 JSONObject url = imagearray.getJSONObject(a);
 //                                                localStorage.setTrackImage(url.getString("url"));
                                                 trackimg = url.getString("url");
@@ -336,7 +346,7 @@ public class HomeActivity extends AppCompatActivity
                                     spotifytracks.setTrackAlbumName(album.getString("name"));
 
                                     for (int u = 0; u < artist.length(); u++) {
-                                        if (u == 0){
+                                        if (u == 0) {
                                             JSONObject aristsname = artist.getJSONObject(u);
                                             spotifytracks.setTrackArtist(aristsname.getString("name"));
                                         }
@@ -344,7 +354,7 @@ public class HomeActivity extends AppCompatActivity
                                     }
 
                                     for (int a = 0; a < imagearray.length(); a++) {
-                                        if (a == 0){
+                                        if (a == 0) {
                                             JSONObject url = imagearray.getJSONObject(a);
                                             spotifytracks.setTrackImage(url.getString("url"));
 
