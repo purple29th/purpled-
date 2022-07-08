@@ -34,6 +34,7 @@ import com.example.purpled.viewholder.SongListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -76,6 +77,7 @@ public class HomeActivity extends AppCompatActivity
     private RelativeLayout homeplayer, loading;
     private String songUrl;
     private String tracktitle, trackartist, trackurl, trackimg, recommendation = "";
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onResume() {
@@ -115,6 +117,14 @@ public class HomeActivity extends AppCompatActivity
         loading = findViewById(R.id.loading_container);
 
         recommendation = localStorage.getMyGenre();
+        floatingActionButton = findViewById(R.id.fab);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
         homePlayBtn.setOnClickListener(new View.OnClickListener() {

@@ -15,7 +15,7 @@ import android.widget.ImageButton;
 
 public class RecommendationsNav extends AppCompatActivity {
 
-    Button hipHop, rnb, reggae, soul, country, afro, updateRecBtn;
+    Button hipHop, rnb, reggae, soul, country, afro;
     String recommendationUpdate;
     LocalStorage localStorage;
     ProgressDialog progressDialog;
@@ -45,7 +45,6 @@ public class RecommendationsNav extends AppCompatActivity {
 
 
         reggae.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
                 recommendationUpdate = "https://spotify23.p.rapidapi.com/playlist_tracks/?id=7J09i0Z2lhcl4yKgnDVWvp&offset=0&limit=100";
@@ -57,7 +56,6 @@ public class RecommendationsNav extends AppCompatActivity {
         });
 
         rnb.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
                 recommendationUpdate = "https://spotify23.p.rapidapi.com/playlist_tracks/?id=35lZKb4s9WJYHZErKDqrtN&offset=0&limit=100";
@@ -69,7 +67,6 @@ public class RecommendationsNav extends AppCompatActivity {
         });
 
         country.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
                 recommendationUpdate = "https://spotify23.p.rapidapi.com/playlist_tracks/?id=6xQh0a4iRnjLJjUfnYc1Im&offset=0&limit=100";
@@ -81,7 +78,6 @@ public class RecommendationsNav extends AppCompatActivity {
         });
 
         afro.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
                 recommendationUpdate = "https://spotify23.p.rapidapi.com/playlist_tracks/?id=6AlvY4xsfwl8ZDFwbBhIYL&offset=0&limit=100";
@@ -93,7 +89,6 @@ public class RecommendationsNav extends AppCompatActivity {
         });
 
         soul.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
                 recommendationUpdate = "https://spotify23.p.rapidapi.com/playlist_tracks/?id=3JjkeMIa3kE2sx3JwHf0hD&offset=0&limit=100";
@@ -105,7 +100,6 @@ public class RecommendationsNav extends AppCompatActivity {
         });
 
         hipHop.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
                 recommendationUpdate =  "https://spotify23.p.rapidapi.com/playlist_tracks/?id=1Hz7FY5h1wbKgSm2ISJkFS&offset=0&limit=100";
