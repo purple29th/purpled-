@@ -432,12 +432,15 @@ public class HomeActivity extends AppCompatActivity
                 Intent album = new Intent(HomeActivity.this, AlbumsAcivity.class);
                 startActivity(album);
                 finish();
-                break;
 
             case R.id.local_music:
                 Intent localmusic = new Intent(HomeActivity.this, LocalMusic.class);
                 startActivity(localmusic);
                 finish();
+
+            case R.id.recommendations:
+                Intent recommendations = new Intent(HomeActivity.this, RecommendationsNav.class);
+                startActivity(recommendations);
                 break;
 
             case R.id.logout:
