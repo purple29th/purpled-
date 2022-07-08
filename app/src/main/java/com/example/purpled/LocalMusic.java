@@ -51,11 +51,9 @@ public class LocalMusic extends AppCompatActivity
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private Toolbar mToolbar;
-    TextView contentView, songTitle;
     ListView listView;
     String[] items;
     LocalStorage localStorage;
-    ImageButton homePlayBtn;
     static MediaPlayer mediaPlayer;
 
     @Override
@@ -64,23 +62,18 @@ public class LocalMusic extends AppCompatActivity
         setContentView(R.layout.activity_local_music);
 
         Paper.init(this);
-//        songTitle = findViewById(R.id.home_songtitle);
-//        homePlayBtn = findViewById(R.id.home_playbtn);
 
         localStorage = new LocalStorage(this);
-//        String pos = localStorage.getPos();
-//        String songName = localStorage.getSongtitle();
 
         if (mediaPlayer != null) {
             mediaPlayer.start();
             mediaPlayer.release();
         }
-//        songTitle.setText(localStorage.getSongtitle());
 
         mToolbar = findViewById(R.id.nav_action);
         mToolbar.setTitle(R.string.app_name);
         setSupportActionBar(mToolbar);
-//        listView = findViewById(R.id.listView);
+        listView = findViewById(R.id.listView);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mToggle = new ActionBarDrawerToggle(LocalMusic.this, mDrawerLayout, R.string.nav_open, R.string.nav_close);
@@ -95,22 +88,7 @@ public class LocalMusic extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        runtimePermission();
-    }
-
-    public void runtimePermission() {
-        Dexter.withContext(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)
-                .withListener(new MultiplePermissionsListener() {
-                    @Override
-                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
-                        displaySong();
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
-                        permissionToken.continuePermissionRequest();
-                    }
-                }).check();
+        displaySong();
     }
 
     public ArrayList<File> findSongs(File file) {
@@ -118,12 +96,17 @@ public class LocalMusic extends AppCompatActivity
         File[] files = file.listFiles();
 
         for (File singleFile : files) {
-            if (singleFile.isDirectory() && !singleFile.isHidden()) {
+            if (
+                    singleFile.isDirectory() &&
+                            !singleFile.isHidden()
+            ) {
                 arrayList.addAll(findSongs(singleFile));
             } else {
                 if (singleFile.getName().endsWith(".mp3")) {
                     arrayList.add(singleFile);
                 }
+
+
             }
 
         }
@@ -150,13 +133,8 @@ public class LocalMusic extends AppCompatActivity
                         .putExtra("songTitle", songName)
                         .putExtra("pos", i));
 
-                String songname =  mysongs.get(i).getName().toString().replace(".mp3", "")
+                String songname = mysongs.get(i).getName().toString().replace(".mp3", "")
                         .replace(".wav", "");
-
-
-//                localStorage.setPos(String.valueOf(i));
-//                localStorage.setSongtitle(songname);
-////                songTitle.setText(songname);
 
 
             }
@@ -182,8 +160,8 @@ public class LocalMusic extends AppCompatActivity
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-//            View listView = getLayoutInflater().inflate(R.layout.list_items, null);
-//            TextView songTitle = listView.findViewById(R.id.song_title);
+            View listView = getLayoutInflater().inflate(R.layout.song_list_viewholder, null);
+            TextView songTitle = listView.findViewById(R.id.list_title);
             songTitle.setSelected(true);
             songTitle.setText(items[i]);
             return listView;

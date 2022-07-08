@@ -16,11 +16,35 @@ public class LocalStorage {
     String trackImage;
     String trackUrl;
     String tracks;
+    String oneTimeState = "yes";
+    String myGenre;
 
     public LocalStorage(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences("STORAGE_LOGIN_API", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+    }
+
+    public String getOneTimeState() {
+        oneTimeState = sharedPreferences.getString("ONETIMESTATE", "");
+        return oneTimeState;
+    }
+
+    public void setOneTimeState(String oneTimeState) {
+        editor.putString("ONETIMESTATE", oneTimeState);
+        editor.commit();
+        this.oneTimeState = oneTimeState;
+    }
+
+    public String getMyGenre() {
+        myGenre = sharedPreferences.getString("MYGENRE", "");
+        return myGenre;
+    }
+
+    public void setMyGenre(String myGenre) {
+        editor.putString("MYGENRE", myGenre);
+        editor.commit();
+        this.myGenre = myGenre;
     }
 
     public String getUid() {

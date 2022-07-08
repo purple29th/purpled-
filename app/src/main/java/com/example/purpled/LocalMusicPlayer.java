@@ -71,8 +71,6 @@ public class LocalMusicPlayer extends AppCompatActivity {
 
         imageView = findViewById(R.id.play_image);
 
-        mToolbar = findViewById(R.id.nav_action);
-
 
         if (mediaPlayer != null){
             mediaPlayer.start();
@@ -92,14 +90,6 @@ public class LocalMusicPlayer extends AppCompatActivity {
         songTitle = mySongs.get(position).getName().toString().replace(".mp3", "")
                 .replace(".wav", "");
         songName.setText(songTitle);
-
-//        localStorage.setPos(String.valueOf(position));
-//        localStorage.setSongtitle(songTitle);
-
-        mToolbar.setTitle(songTitle);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_down);
 
 
         mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
