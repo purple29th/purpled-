@@ -41,5 +41,4 @@
         android:layout_marginBottom="70dp"
         app:srcCompat="@drawable/message" />
 
-
 </RelativeLayout>

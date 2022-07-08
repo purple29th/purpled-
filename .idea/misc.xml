@@ -22,21 +22,33 @@
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject/app/src/main/res/layout/content_home.xml" value="0.209375" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject/app/src/main/res/layout/nav_header_home.xml" value="0.22" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject/app/src/main/res/menu/activity_home2_drawer.xml" value="0.209375" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/drawable-v24/message.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/drawable/button_click.xml" value="0.173" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/drawable/circle_purple_bg.xml" value="0.152" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/drawable/ic_baseline_replay_24.xml" value="0.152" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/drawable/ic_next.xml" value="0.152" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/drawable/ic_pause.xml" value="0.152" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/drawable/ic_previous.xml" value="0.152" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_albums_acivity.xml" value="0.3351851851851852" />
-        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_api_player.xml" value="0.171875" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_api_player.xml" value="0.25" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_home.xml" value="0.171875" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_local_music.xml" value="0.1" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_local_music_player.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_login.xml" value="0.209375" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_main.xml" value="0.209375" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_one_time.xml" value="0.25" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_recommendations.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_recommendations_nav.xml" value="0.22" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_test_frag.xml" value="0.209375" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/app_bar_home.xml" value="0.171875" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/content_home.xml" value="0.22" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/fragment_blank.xml" value="0.1953125" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/fragment_home.xml" value="0.19130434782608696" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/local_music.xml" value="0.18911174785100288" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/nav_header_home.xml" value="0.209375" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/song_list_viewholder.xml" value="0.25" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/menu/activity_home2_drawer.xml" value="0.209375" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

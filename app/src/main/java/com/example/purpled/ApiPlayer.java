@@ -28,10 +28,10 @@ import org.json.JSONObject;
 public class ApiPlayer extends AppCompatActivity {
 
     private Button playBtn, nextBtn, prevBtn;
-    private TextView songName, songTimeStart, songTimeEnd;
+    private TextView songName, songTimeStart, songTimeEnd, songArtist;
     private SeekBar seekMusicBar;
     private Toolbar mToolbar;
-    static MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;
     LocalStorage localStorage;
     private Handler handler = new Handler();
     private String trackUrl, trackName, trackArtist, itemsArray;
@@ -54,7 +54,6 @@ public class ApiPlayer extends AppCompatActivity {
 
         Intent intent = getIntent();
         localStorage = new LocalStorage(this);
-        localStorage.sharedPreferences.edit().clear().apply();
 
         trackUrl = intent.getStringExtra("trackUrl");
         trackName = intent.getStringExtra("trackTitle");
@@ -73,6 +72,7 @@ public class ApiPlayer extends AppCompatActivity {
         imageView = findViewById(R.id.play_image);
         barVisualizer = findViewById(R.id.wave);
         songName = findViewById(R.id.play_song_title);
+        songArtist = findViewById(R.id.play_song_artist);
         songTimeStart = findViewById(R.id.song_start);
         songTimeEnd = findViewById(R.id.song_end);
         Picasso.get().load(intent.getStringExtra("trackImage")).into(imageView);
@@ -87,15 +87,10 @@ public class ApiPlayer extends AppCompatActivity {
 
         mediaPlayer = new MediaPlayer();
 
-        songName.setText(trackName + " by " + trackArtist);
+        songName.setText(trackName);
+        songArtist.setText(trackArtist);
 
         seekMusicBar = findViewById(R.id.seekbar);
-
-//        if (mediaPlayer != null){
-//            Toast.makeText(this, "not null", Toast.LENGTH_SHORT).show();
-//        }
-//
-//
 
         prepareMediaPlayer();
 
@@ -115,34 +110,6 @@ public class ApiPlayer extends AppCompatActivity {
             }
         });
 
-//        nextBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mediaPlayer.stop();
-//                mediaPlayer.release();
-//                position = ((position+1)%mySongs.size());
-//                Uri uri1 = Uri.parse(mySongs.get(position).toString());
-//                mediaPlayer = MediaPlayer.create(getApplicationContext(),uri1);
-//                songTitle = mySongs.get(position).getName().toString().replace(".mp3", "")
-//                        .replace(".wav", "");
-//                songName.setText(songTitle);
-//                mediaPlayer.start();
-//
-//                String endTime = createTime(mediaPlayer.getDuration());
-//                songTimeEnd.setText(endTime);
-//
-////                localStorage.setPos(String.valueOf(position));
-////                localStorage.setSongtitle(songTitle);
-//
-//                int audiosessionId = mediaPlayer.getAudioSessionId();
-//                if (audiosessionId != -1){
-//                    barVisualizer.setAudioSessionId(audiosessionId);
-//                }
-//
-//                startAnimation(imageView, 360f);
-//            }
-//        });
-
         seekMusicBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -160,26 +127,6 @@ public class ApiPlayer extends AppCompatActivity {
                 seekMusicBar.setSecondaryProgress(i);
             }
         });
-
-//        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mediaPlayer) {
-//                seekMusicBar.setProgress(0);
-////               playBtn.setBackgroundResource(R.drawable.ic_play_white);
-//               songTimeStart.setText("0");
-//               songTimeEnd.setText("0");
-//               mediaPlayer.reset();
-//               prepareMediaPlayer();
-//            }
-//        });
-    }
-
-    private void stopAudio() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
     }
 
     private void prepareMediaPlayer() {
