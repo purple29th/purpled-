@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class RecommendationsNav extends AppCompatActivity {
 
@@ -18,6 +19,7 @@ public class RecommendationsNav extends AppCompatActivity {
     String recommendationUpdate;
     LocalStorage localStorage;
     ProgressDialog progressDialog;
+    ImageButton backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,14 @@ public class RecommendationsNav extends AppCompatActivity {
         country = findViewById(R.id.country);
         rnb = findViewById(R.id.rNb);
         reggae = findViewById(R.id.reggae);
+        backBtn = findViewById(R.id.back_btn);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         reggae.setOnClickListener(new View.OnClickListener() {
