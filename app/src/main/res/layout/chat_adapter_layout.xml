@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/opp_layout"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/oppMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is opp Message"
+                android:padding="20dp"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:background="@drawable/opp_msg_back"/>
+
+            <TextView
+                android:id="@+id/oppMsgTimeStamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10-08-2021 08:12 PM"
+                android:layout_marginTop="5dp"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/my_layout"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/myMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is opp Message"
+                android:padding="20dp"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:background="@drawable/my_msg_bck"/>
+
+            <TextView
+                android:id="@+id/myMsgTimeStamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="10-08-2021 08:12 PM"
+                android:layout_marginTop="5dp"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
