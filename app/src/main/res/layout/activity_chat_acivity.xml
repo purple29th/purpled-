@@ -93,7 +93,9 @@
             android:background="@drawable/textarea_bg"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Message"
+            android:hint="Message"
+            android:inputType="textCapSentences"
+            android:textColorHint="@color/white"
             android:textColor="@color/white"
             android:textSize="16sp" />
 

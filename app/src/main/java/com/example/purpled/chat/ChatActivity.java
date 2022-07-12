@@ -1,13 +1,21 @@
 package com.example.purpled.chat;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -18,9 +26,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.purpled.LocalStorage;
+import com.example.purpled.LoginActivity;
+import com.example.purpled.Messages;
 import com.example.purpled.R;
+import com.example.purpled.RegisterActivity;
 import com.example.purpled.data.MemoryData;
 import com.example.purpled.model.MessagesList;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,13 +68,94 @@ public class ChatActivity extends AppCompatActivity {
     String username, dp;
     String chatKey;
     private int generatedChatKey;
-    String getUID;
+    String getUID, getDate, getTime;
     LocalStorage localStorage;
     private RecyclerView chattingView;
     private List<ChatList> chatLists;
     private ChatAdapter chatAdapter;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private boolean loadingfirstTime = true;
+    private boolean online = false;
+
+    Handler handler = new Handler();
+    Runnable runnable;
+    int delay = 10000;
+
+    private boolean isOnline(boolean b) {
+        try {
+            ConnectivityManager cm = (ConnectivityManager) ChatActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            return cm.getActiveNetworkInfo().isConnectedOrConnecting();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        handler.postDelayed(runnable = new Runnable() {
+            public void run() {
+                handler.postDelayed(runnable, delay);
+
+                isOnline(true);
+                Date date = new Date();
+
+                final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy.MM.dd");
+                final SimpleDateFormat sdf2 = new SimpleDateFormat("HH.mm");
+
+                if (getTime.equals(sdf2.format(date))) {
+                    if (getDate.equals(sdf1.format(date))) {
+
+                        onlineId.setVisibility(View.VISIBLE);
+                        onlineId.setText("Online22");
+                    }
+                } else {
+                    onlineId.setVisibility(View.GONE);
+                }
+
+                if (isOnline(true)) {
+                    online = isOnline(true);
+                }
+                updateOnline();
+
+            }
+        }, delay);
+        super.onResume();
+
+    }
+
+    private void updateOnline() {
+        Date date = new Date();
+//        Timestamp timestamp2 = new Timestamp(date.getTime());
+        final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy.MM.dd");
+        final SimpleDateFormat sdf2 = new SimpleDateFormat("HH.mm");
+
+        HashMap<String, Object> userMap = new HashMap<>();
+        userMap.put("online", online);
+        userMap.put("date", sdf1.format(date));
+        userMap.put("time", sdf2.format(date));
+
+        databaseReference.child("users").child(localStorage.getUid()).child("userState").updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d(TAG, "DocumentSnapshot successfully written!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error writing document", e);
+            }
+        });
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isOnline(false);
+        if (isOnline(false)) {
+            handler.removeCallbacks(runnable); //stop handler when activity not visible super.onPause();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +164,8 @@ public class ChatActivity extends AppCompatActivity {
 
         localStorage = new LocalStorage(this);
         chatLists = new ArrayList<>();
-
+        getTime = getIntent().getStringExtra("time");
+        getDate = getIntent().getStringExtra("date");
         backBtn = findViewById(R.id.back_btn);
         sendBtn = findViewById(R.id.sendBtn);
         userDP = findViewById(R.id.profilePic);
@@ -80,6 +176,8 @@ public class ChatActivity extends AppCompatActivity {
         dp = getIntent().getStringExtra("profile_pic");
         chatKey = getIntent().getStringExtra("chat_key");
         getUID = getIntent().getStringExtra("uid");
+
+
         chattingView = findViewById(R.id.chattingView);
 
         chatAdapter = new ChatAdapter(this, chatLists);
@@ -88,10 +186,12 @@ public class ChatActivity extends AppCompatActivity {
         chattingView.setAdapter(chatAdapter);
 
         userName.setText(username);
+        onlineId.setText("Online22");
+
 //        Picasso.get().load(dp).into(userDP);
 
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (chatKey.isEmpty()) {
@@ -101,32 +201,28 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 }
 
-                if (snapshot.hasChild("chat")){
+                if (snapshot.hasChild("chat")) {
 
-                    if (snapshot.child("chat").child(chatKey).hasChild("messages")){
+                    if (snapshot.child("chat").child(chatKey).hasChild("messages")) {
 
                         chatLists.clear();
 
 
-                        for (DataSnapshot messageSnapshot : snapshot.child("chat").child(chatKey).child("messages").getChildren()){
+                        for (DataSnapshot messageSnapshot : snapshot.child("chat").child(chatKey).child("messages").getChildren()) {
 
-                            if (messageSnapshot.hasChild("msg") && messageSnapshot.hasChild("uid")){
+                            if (messageSnapshot.hasChild("msg") && messageSnapshot.hasChild("uid")) {
                                 final String messageTimeStamp = messageSnapshot.getKey();
-                                final  String getUid = messageSnapshot.child("uid").getValue(String.class);
+                                final String getUid = messageSnapshot.child("uid").getValue(String.class);
                                 final String getMsg = messageSnapshot.child("msg").getValue(String.class);
-
-                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                                SimpleDateFormat stf = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
-
-                                Timestamp timestamp = new Timestamp(Long.parseLong(messageTimeStamp));
-                                Date date = new Date(timestamp.getTime());
+                                final String getTime = messageSnapshot.child("time").getValue(String.class);
+                                final String getDate = messageSnapshot.child("date").getValue(String.class);
 
 
-                                ChatList chatList= new ChatList(getUid, username,getMsg,sdf.format(date),stf.format(date));
+                                ChatList chatList = new ChatList(getUid, username, getMsg, getDate, getTime);
                                 chatLists.add(chatList);
                                 chatAdapter.updateChatList(chatLists);
 
-                                if(loadingfirstTime || Long.parseLong(messageTimeStamp) > Long.parseLong(MemoryData.getLastMsgTs(ChatActivity.this, chatKey))){
+                                if (loadingfirstTime || Long.parseLong(messageTimeStamp) > Long.parseLong(MemoryData.getLastMsgTs(ChatActivity.this, chatKey))) {
                                     loadingfirstTime = false;
 
 
@@ -153,18 +249,29 @@ public class ChatActivity extends AppCompatActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(messageInput.getText())){
+                if (TextUtils.isEmpty(messageInput.getText())) {
                     Toast.makeText(ChatActivity.this, "Your text box is empty", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     final String getTxtMsg = messageInput.getText().toString();
                     final String currentTimeStamp = String.valueOf(System.currentTimeMillis()).substring(0, 10);
+
+                    MediaPlayer music = MediaPlayer.create(ChatActivity.this, R.raw.message_sent);
+                    music.start();
+
+                    Date date = new Date();
+
+                    final SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyy");
+                    final SimpleDateFormat sdf2 = new SimpleDateFormat("HH.mm aa");
 
                     databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUID);
                     databaseReference.child("chat").child(chatKey).child("user_2").setValue(localStorage.getUid());
                     databaseReference.child("chat").child(chatKey).child("messages").child(currentTimeStamp).child("msg").setValue(getTxtMsg);
                     databaseReference.child("chat").child(chatKey).child("messages").child(currentTimeStamp).child("uid").setValue(getUID);
+                    databaseReference.child("chat").child(chatKey).child("messages").child(currentTimeStamp).child("time").setValue(sdf2.format(date));
+                    databaseReference.child("chat").child(chatKey).child("messages").child(currentTimeStamp).child("date").setValue(sdf1.format(date));
 
                     messageInput.setText("");
+                    chattingView.scrollToPosition(chatLists.size()-1);
                 }
 
             }

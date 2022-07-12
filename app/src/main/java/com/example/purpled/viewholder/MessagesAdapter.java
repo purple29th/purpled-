@@ -80,6 +80,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
                 intent.putExtra("chat_key", messagesLists.get(position).getChatKey());
                 intent.putExtra("uid", messagesLists.get(position).getUID());
 
+                intent.putExtra("time", messagesLists.get(position).getTime());
+                intent.putExtra("date", messagesLists.get(position).getDate());
+                intent.putExtra("is_online", messagesLists.get(position).isOnline());
+
                 context.startActivity(intent);
 
             }

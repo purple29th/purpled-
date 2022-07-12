@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.purpled.data.MemoryData;
 import com.example.purpled.model.MessagesList;
@@ -28,7 +29,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -50,9 +50,9 @@ public class Messages extends AppCompatActivity {
     private String chatKey = "";
     private List<MessagesList> messagesList;
     private MessagesAdapter messagesAdapter;
-    private boolean dataSet = false;
+    private boolean dataSet = false, userStateOnline = false;
     private String getUsername;
-    private String getUserProfile;
+    private String getUserProfile, userStateDate = "", userStateTime = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +97,12 @@ public class Messages extends AppCompatActivity {
 
                     if (!getUID.equals(localStorage.getUid())) {
                         getUsername = dataSnapshot.child("username").getValue(String.class);
+
+                        if (dataSnapshot.hasChild("userState")){
+                            userStateDate = dataSnapshot.child("userState").child("date").getValue(String.class);
+                            userStateTime = dataSnapshot.child("userState").child("time").getValue(String.class);
+                        }
+//                        userStateOnline = (boolean) dataSnapshot.child("userState").child("online").getValue();
                         getUserProfile = "";
 
 //                                if (!(documentSnapshot.get("profilePic").toString()).isEmpty()){
@@ -145,7 +151,7 @@ public class Messages extends AppCompatActivity {
                                 }
                                 if (!dataSet) {
                                     dataSet = true;
-                                    MessagesList messagesLists = new MessagesList(getUsername, getUID, lastMessage, unseenMessages, getUserProfile, chatKey);
+                                    MessagesList messagesLists = new MessagesList(getUsername, getUID, lastMessage, unseenMessages, getUserProfile, chatKey, userStateDate, userStateTime, userStateOnline);
                                     messagesList.add(messagesLists);
                                     messagesAdapter.updateData(messagesList);
                                 }

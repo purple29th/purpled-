@@ -2,17 +2,21 @@ package com.example.purpled.model;
 
 public class MessagesList {
 
-    private String username, uid, lastMessage, userProfile, chatKey;
-
+    private String username, uid, lastMessage, userProfile, chatKey, date, time;
+    private boolean online;
     private final int unseenMessages;
 
-    public MessagesList(String username, String uid, String lastMessage, int unseenMessages, String userProfile, String chatKey) {
+    public MessagesList(String username, String uid, String lastMessage, int unseenMessages, String userProfile, String chatKey, String date, String time, boolean online) {
         this.username = username;
         this.uid = uid;
         this.lastMessage = lastMessage;
         this.unseenMessages = unseenMessages;
         this.userProfile = userProfile;
         this.chatKey = chatKey;
+        this.date = date;
+        this.time = time;
+        this.online = online;
+
     }
 
     public String getUserProfile() {
@@ -41,5 +45,17 @@ public class MessagesList {
 
     public String getChatKey() {
         return chatKey;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public boolean isOnline() {
+        return online;
     }
 }
