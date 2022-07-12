@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -122,7 +119,8 @@ public class HomeActivity extends AppCompatActivity
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(HomeActivity.this, Messages.class);
+                startActivity(intent);
             }
         });
 
@@ -261,7 +259,6 @@ public class HomeActivity extends AppCompatActivity
         timerString = timerString + minutes + ":" + secondsString;
         return timerString;
     }
-
 
     private void checkSpotify() {
         String url = recommendation;
