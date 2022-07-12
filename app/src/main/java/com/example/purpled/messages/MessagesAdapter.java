@@ -1,14 +1,12 @@
-package com.example.purpled.viewholder;
+package com.example.purpled.messages;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,17 +14,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.purpled.ApiPlayer;
 import com.example.purpled.LocalStorage;
 import com.example.purpled.R;
 import com.example.purpled.chat.ChatActivity;
-import com.example.purpled.model.MessagesList;
-import com.example.purpled.model.SongListClass;
 import com.squareup.picasso.Picasso;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyViewHolder> {
 

@@ -1,4 +1,4 @@
-package com.example.purpled.model;
+package com.example.purpled.messages;
 
 public class MessagesList {
 

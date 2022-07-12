@@ -1,4 +1,4 @@
-package com.example.purpled;
+package com.example.purpled.messages;
 
 import static android.content.ContentValues.TAG;
 
@@ -8,15 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.purpled.LocalStorage;
+import com.example.purpled.R;
 import com.example.purpled.data.MemoryData;
-import com.example.purpled.model.MessagesList;
 import com.example.purpled.model.Users;
-import com.example.purpled.viewholder.MessagesAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -52,7 +50,7 @@ public class Messages extends AppCompatActivity {
     private MessagesAdapter messagesAdapter;
     private boolean dataSet = false, userStateOnline = false;
     private String getUsername;
-    private String getUserProfile, userStateDate = "", userStateTime = "";
+    private String getUserProfile, userStateDate, userStateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +95,9 @@ public class Messages extends AppCompatActivity {
 
                     if (!getUID.equals(localStorage.getUid())) {
                         getUsername = dataSnapshot.child("username").getValue(String.class);
-
-                        if (dataSnapshot.hasChild("userState")){
-                            userStateDate = dataSnapshot.child("userState").child("date").getValue(String.class);
-                            userStateTime = dataSnapshot.child("userState").child("time").getValue(String.class);
-                        }
-//                        userStateOnline = (boolean) dataSnapshot.child("userState").child("online").getValue();
+                        userStateDate = dataSnapshot.child("userState").child("date").getValue(String.class);
+                        userStateTime = dataSnapshot.child("userState").child("time").getValue(String.class);
+//                        userStateOnline = (boolean) dataSnapshot.child("userState").child("online").;
                         getUserProfile = "";
 
 //                                if (!(documentSnapshot.get("profilePic").toString()).isEmpty()){
@@ -151,7 +146,7 @@ public class Messages extends AppCompatActivity {
                                 }
                                 if (!dataSet) {
                                     dataSet = true;
-                                    MessagesList messagesLists = new MessagesList(getUsername, getUID, lastMessage, unseenMessages, getUserProfile, chatKey, userStateDate, userStateTime, userStateOnline);
+                                    MessagesList messagesLists = new MessagesList(getUsername, getUID, lastMessage, unseenMessages, getUserProfile, chatKey, userStateDate, userStateTime, false);
                                     messagesList.add(messagesLists);
                                     messagesAdapter.updateData(messagesList);
                                 }
@@ -235,9 +230,9 @@ public class Messages extends AppCompatActivity {
 //        import android.widget.Toast;
 //
 //        import com.example.purpled.data.MemoryData;
-//        import com.example.purpled.model.MessagesList;
+//        import com.example.purpled.messages.MessagesList;
 //        import com.example.purpled.model.Users;
-//        import com.example.purpled.viewholder.MessagesAdapter;
+//        import com.example.purpled.messages.MessagesAdapter;
 //        import com.google.android.gms.tasks.OnCompleteListener;
 //        import com.google.android.gms.tasks.OnSuccessListener;
 //        import com.google.android.gms.tasks.Task;
