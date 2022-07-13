@@ -41,6 +41,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends AppCompatActivity {
+
     ImageView backBtn, sendBtn;
     CircleImageView userDP;
     EditText messageInput;
@@ -54,6 +55,7 @@ public class ChatActivity extends AppCompatActivity {
     private List<ChatList> chatLists;
     private ChatAdapter chatAdapter;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
     private boolean loadingfirstTime = true;
     private boolean online = false;
 
@@ -86,7 +88,7 @@ public class ChatActivity extends AppCompatActivity {
                     if (getDate.equals(sdf1.format(date))) {
 
                         onlineId.setVisibility(View.VISIBLE);
-                        onlineId.setText("Online22");
+                        onlineId.setText("Online");
                     }
                 } else {
                     onlineId.setVisibility(View.GONE);
@@ -105,7 +107,6 @@ public class ChatActivity extends AppCompatActivity {
 
     private void updateOnline() {
         Date date = new Date();
-//        Timestamp timestamp2 = new Timestamp(date.getTime());
         final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy.MM.dd");
         final SimpleDateFormat sdf2 = new SimpleDateFormat("HH.mm");
 
@@ -152,6 +153,7 @@ public class ChatActivity extends AppCompatActivity {
         messageInput = findViewById(R.id.input_msg);
         userName = findViewById(R.id.userName);
         onlineId = findViewById(R.id.online);
+
         username = getIntent().getStringExtra("name");
         dp = getIntent().getStringExtra("profile_pic");
         chatKey = getIntent().getStringExtra("chat_key");
@@ -166,9 +168,7 @@ public class ChatActivity extends AppCompatActivity {
         chattingView.setAdapter(chatAdapter);
 
         userName.setText(username);
-        onlineId.setText("Online22");
-
-//        Picasso.get().load(dp).into(userDP);
+        onlineId.setText("Online");
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
