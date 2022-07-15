@@ -6,11 +6,16 @@ public class MessageModel {
     private String message;
     private String receiverId;
 
-    public MessageModel(String msgId, String senderId, String message, String receiverId) {
+    private String date;
+    private String time;
+
+    public MessageModel(String msgId, String senderId, String message, String receiverId, String date, String time) {
         this.msgId = msgId;
         this.senderId = senderId;
         this.message = message;
         this.receiverId = receiverId;
+        this.date = message;
+        this.time = receiverId;
     }
 
     public MessageModel(){
@@ -47,5 +52,21 @@ public class MessageModel {
 
     public void setReceiverId(String receiverId) {
         this.receiverId = receiverId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

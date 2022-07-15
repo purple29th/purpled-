@@ -94,7 +94,7 @@ public class ChatActivity extends AppCompatActivity {
         senderRoom = localStorage.getUid() + receiverId;
         receiverRoom = receiverId + localStorage.getUid();
 
-
+        binding.online.setText("Online");
         databaseReferenceSender = FirebaseDatabase.getInstance().getReference().child("chats").child(senderRoom);
         databaseReferenceReceiver = FirebaseDatabase.getInstance().getReference().child("chats").child(receiverRoom);
 
@@ -140,9 +140,12 @@ public class ChatActivity extends AppCompatActivity {
         final SimpleDateFormat sdf1 = new SimpleDateFormat("ddMMyyy");
         final SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss");
 
+        final SimpleDateFormat sdf3 = new SimpleDateFormat("dd-MM-yyy");
+        final SimpleDateFormat sdf4 = new SimpleDateFormat("HH:mm aa");
+
 
         final String messageId = sdf1.format(date)+sdf2.format(date);
-        MessageModel messageModel = new MessageModel(messageId, localStorage.getUid(), message, receiverId);
+        MessageModel messageModel = new MessageModel(messageId, localStorage.getUid(), message, receiverId, sdf3.format(date), sdf4.format(date));
 
         chatAdapter.add(messageModel);
         databaseReferenceSender.child(messageId).setValue(messageModel).addOnSuccessListener(new OnSuccessListener<Void>() {
