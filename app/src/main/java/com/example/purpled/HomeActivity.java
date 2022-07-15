@@ -193,17 +193,18 @@ public class HomeActivity extends AppCompatActivity
                             @SuppressLint("ResourceAsColor")
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                Users users = documentSnapshot.toObject(Users.class);
+                                String username = documentSnapshot.getString("username");
+                                String userImg = documentSnapshot.getString("userProfile");
 
-                                if (users.getUsername() == null) {
+                                if (username == null) {
                                     Log.w(TAG, "No UserName");
                                 } else {
-                                    userName.setText("@" + users.getUsername());
+                                    userName.setText("@" + username);
                                 }
-                                if (users.getImage() == null) {
+                                if (userImg == null) {
                                     Log.w(TAG, "No Profile Image");
                                 } else {
-                                    Picasso.get().load(users.getImage()).into(profileImageView);
+                                    Picasso.get().load(userImg).into(profileImageView);
                                 }
 
 

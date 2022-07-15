@@ -13,56 +13,61 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.purpled.LocalStorage;
 import com.example.purpled.R;
+import com.example.purpled.model.MessageModel;
+import com.example.purpled.model.Users;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
-    private final LayoutInflater inflater;
-    private List<ChatList> chatList;
-    LocalStorage localStorage;
-    private String UID;
+    private List<MessageModel> chatList;
     private final Context context;
+    private LocalStorage localStorage;
 
-    public ChatAdapter(Context ctx, List<ChatList> chatList){
+    public ChatAdapter(Context ctx){
 
-        inflater = LayoutInflater.from(ctx);
-        this.chatList = chatList;
         this.context = ctx;
-        localStorage = new LocalStorage(context);
-        this.UID = localStorage.getUid();
+        chatList = new ArrayList<>();
 
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.chat_adapter_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_adapter_layout, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        ChatList list1 = chatList.get(position);
+        localStorage = new LocalStorage(context);
+        MessageModel list1 = chatList.get(position);
 
-        if (!list1.getUid().equals(UID)){
+
+        if (list1.getSenderId().equals(localStorage.getUid())){
             holder.myLayout.setVisibility(View.VISIBLE);
             holder.oppLayout.setVisibility(View.GONE);
 
             holder.myMsg.setText(list1.getMessage());
-            holder.myTimeStamp.setText(list1.getDate()+" "+list1.getTime());
+//            holder.myTimeStamp.setText(list1.getDate()+" "+list1.getTime());
         }else {
             holder.myLayout.setVisibility(View.GONE);
             holder.oppLayout.setVisibility(View.VISIBLE);
 
             holder.oppMsg.setText(list1.getMessage());
-            holder.oppTimeStamp.setText(list1.getDate()+" "+list1.getTime());
+//            holder.oppTimeStamp.setText(list1.getDate()+" "+list1.getTime());
         }
     }
 
-    public void updateChatList(List<ChatList> chatList){
-        this.chatList = chatList;
+    public void add(MessageModel messageModel){
+        chatList.add(messageModel);
+        notifyDataSetChanged();
+    }
+
+    public void clear(){
+        chatList.clear();
         notifyDataSetChanged();
     }
 

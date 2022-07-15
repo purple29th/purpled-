@@ -171,13 +171,13 @@ public class Recommendations extends AppCompatActivity {
                             @SuppressLint("ResourceAsColor")
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                Users users = documentSnapshot.toObject(Users.class);
+                                String username = (String) documentSnapshot.get("username");
 
-                                if (users.getUsername() == null) {
+                                if (username == null) {
                                     Log.w(TAG, "No UserName");
                                 } else {
-                                    helloTxt.setText("Hello " + users.getUsername() + ", " + "choose your favourite genre");
-                                    localStorage.setUserName(users.getUsername());
+                                    helloTxt.setText("Hello " + username + ", " + "choose your favourite genre");
+                                    localStorage.setUserName(username);
                                 }
 
 

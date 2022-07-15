@@ -161,6 +161,8 @@ public class RegisterActivity extends AppCompatActivity {
         HashMap<String, Object> userMap = new HashMap<>();
         userMap.put("email", regemail);
         userMap.put("username", regusername);
+        userMap.put("uid", localStorage.getUid());
+
 
         ref.document(localStorage.getUid()).set(userMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
