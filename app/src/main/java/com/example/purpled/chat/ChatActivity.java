@@ -116,6 +116,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        //chat send button
         binding.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
