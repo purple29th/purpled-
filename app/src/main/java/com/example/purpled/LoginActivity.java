@@ -186,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 finish();
                             } else {
-                                Toast.makeText(LoginActivity.this, "Please verify your email before signing in. Kindly chek your inbox or spam messages", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "Please verify your email before signing in. Kindly check your inbox or spam messages", Toast.LENGTH_LONG).show();
 //                            updateUI(user);
                                 progressDialog.dismiss();
                             }
