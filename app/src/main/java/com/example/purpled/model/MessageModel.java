@@ -5,7 +5,6 @@ public class MessageModel {
     private String senderId;
     private String message;
     private String receiverId;
-
     private String date;
     private String time;
 
@@ -14,8 +13,8 @@ public class MessageModel {
         this.senderId = senderId;
         this.message = message;
         this.receiverId = receiverId;
-        this.date = message;
-        this.time = receiverId;
+        this.date = date;
+        this.time = time;
     }
 
     public MessageModel(){
