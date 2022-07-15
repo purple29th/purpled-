@@ -1,19 +1,17 @@
 package com.example.purpled.model;
 
 public class Users {
-    private String firstname, lastname, email, phone, image, username;
+    private String firstname, lastname, email, phone, image, username, uid, lastMsg;
 
-    public Users() {
-
-    }
-
-    public Users(String firstname, String lastname, String email, String phone, String image, String username) {
+    public Users(String firstname, String lastname, String email, String phone, String image, String username, String uid, String lastMsg) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.phone = phone;
         this.image = image;
         this.username = username;
+        this.uid = uid;
+        this.lastMsg = lastMsg;
     }
 
     public String getFirstName() {
@@ -64,4 +62,19 @@ public class Users {
         this.image = image;
     }
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getLastMsg() {
+        return lastMsg;
+    }
+
+    public void setLastMsg(String lastMsg) {
+        this.lastMsg = lastMsg;
+    }
 }

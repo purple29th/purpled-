@@ -21,7 +21,7 @@
             android:name=".chat.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".Messages"
+            android:name=".messages.Messages"
             android:exported="false" />
         <activity
             android:name=".RecommendationsNav"

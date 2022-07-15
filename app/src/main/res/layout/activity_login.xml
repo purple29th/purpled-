@@ -43,6 +43,7 @@
             android:layout_marginEnd="30dp"
             android:paddingEnd="20dp"
             android:maxLines="1"
+            android:textColor="@color/black"
             android:maxLength="100"
             android:paddingStart="20dp"
             android:textSize="20sp"
