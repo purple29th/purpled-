@@ -41,28 +41,28 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_toEndOf="@+id/profilePic"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp">
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/profilePic"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User Name"
                 android:maxLines="1"
-                android:textStyle="bold"
+                android:text="User Name"
+                android:textColor="#424242"
                 android:textSize="18sp"
-                android:textColor="#424242"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/online"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
                 android:text="Nil"
-                android:textColor="#00c853"/>
+                android:textColor="@color/purple_700"
+                android:textSize="13sp" />
 
 
         </LinearLayout>

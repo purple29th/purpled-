@@ -98,6 +98,9 @@ public class HomeActivity extends AppCompatActivity
             }
         }
 
+
+        userInfoDisplay(profileImageView, userName);
+
     }
 
     @Override
@@ -174,7 +177,6 @@ public class HomeActivity extends AppCompatActivity
 
 
         askuserforpermission();
-        userInfoDisplay(profileImageView, userName);
 
     }
 
@@ -446,6 +448,12 @@ public class HomeActivity extends AppCompatActivity
             case R.id.home:
                 Intent intent = new Intent(HomeActivity.this, HomeActivity.class);
                 startActivity(intent);
+                finish();
+                break;
+
+            case R.id.timeline:
+                Intent timeline = new Intent(HomeActivity.this, TimeLine.class);
+                startActivity(timeline);
                 finish();
                 break;
 
