@@ -39,6 +39,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -158,10 +160,22 @@ public class RegisterActivity extends AppCompatActivity {
         CollectionReference ref = FirebaseFirestore.getInstance().collection("Users");
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd:MM:yyyy");
+        String saveCurrentDate = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm aa");
+        String saveCurrentTime = currentTime.format(calendar.getTime());
+
         HashMap<String, Object> userMap = new HashMap<>();
         userMap.put("email", regemail);
         userMap.put("username", regusername);
         userMap.put("uid", localStorage.getUid());
+        userMap.put("CreatedDate", saveCurrentDate);
+        userMap.put("CreatedTime", saveCurrentTime);
+
+
 
 
         ref.document(localStorage.getUid()).set(userMap)
