@@ -17,19 +17,19 @@
         android:paddingEnd="2dp"
         android:src="@drawable/back_btn" />
 
-    <TextView
+    <Button
         android:id="@+id/my_uploads_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
-        android:text="My Uploads"
-        android:textSize="16sp"
-        android:textColor="@color/white"
         android:background="@drawable/circle_bg_light"
-        android:padding="12dp"/>
+        android:padding="10dp"
+        android:text="My Uploads"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
 
 
@@ -56,22 +56,22 @@
             android:id="@+id/track_uri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_below="@id/track_cover_img"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/white_bg"
             android:elevation="8dp"
             android:padding="10dp"
-            android:textSize="20sp"
+            android:text="Select Audio File"
             android:textColor="@color/purple_700"
-            android:textStyle="bold"
-            android:text="Select Audio File" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/track_cover_img"
+            android:layout_below="@id/track_uri"
             android:orientation="vertical"
             android:padding="8dp">
 

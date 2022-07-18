@@ -13,6 +13,7 @@ import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -20,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.purpled.myUploads.MyUploadsActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,7 +37,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashMap;
 
 public class UploadActivity extends AppCompatActivity {
@@ -52,6 +53,7 @@ public class UploadActivity extends AppCompatActivity {
     private CollectionReference firestoreColl;
     private Spinner genrelist;
     private ArrayAdapter<CharSequence> adapter;
+    private Button myUploads;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,15 @@ public class UploadActivity extends AppCompatActivity {
         genrelist = findViewById(R.id.track_genre);
         backBtn = findViewById(R.id.back_btn);
         selectTrack = findViewById(R.id.track_uri);
+        myUploads = findViewById(R.id.my_uploads_btn);
+
+        myUploads.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UploadActivity.this, MyUploadsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         adapter = ArrayAdapter.createFromResource(this, R.array.genres, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -301,6 +312,9 @@ public class UploadActivity extends AppCompatActivity {
         trackMap.put("track_url", downloadTrackUrl);
         trackMap.put("genre", genre);
         trackMap.put("privacy", privacy);
+        trackMap.put("uid", localStorage.getUid());
+        trackMap.put("track_name", tracktitle);
+
 
         firestoreColl = FirebaseFirestore.getInstance().collection("tracks");
         firestoreColl.document(TrackRandomKey).set(trackMap).addOnSuccessListener(new OnSuccessListener<Void>() {
