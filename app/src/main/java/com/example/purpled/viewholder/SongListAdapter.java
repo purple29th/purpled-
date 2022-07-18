@@ -70,6 +70,13 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.MyView
             }
         });
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return false;
+            }
+        });
+
 
     }
 

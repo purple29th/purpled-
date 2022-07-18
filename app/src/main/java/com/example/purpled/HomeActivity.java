@@ -441,11 +441,18 @@ public class HomeActivity extends AppCompatActivity
                 Intent album = new Intent(HomeActivity.this, AlbumsAcivity.class);
                 startActivity(album);
                 finish();
+                break;
 
             case R.id.local_music:
                 Intent localmusic = new Intent(HomeActivity.this, LocalMusic.class);
                 startActivity(localmusic);
                 finish();
+                break;
+
+            case R.id.upload:
+                Intent upload = new Intent(HomeActivity.this, UploadActivity.class);
+                startActivity(upload);
+                break;
 
             case R.id.recommendations:
                 Intent recommendations = new Intent(HomeActivity.this, RecommendationsNav.class);
@@ -459,6 +466,8 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(logout);
                 finish();
                 break;
+
+
 
         }
         return false;
