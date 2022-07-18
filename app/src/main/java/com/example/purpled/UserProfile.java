@@ -48,7 +48,8 @@ public class UserProfile extends AppCompatActivity {
     private Button updateBtn;
     private LocalStorage localStorage;
     private ProgressDialog progressDialog;
-    private static final int ImagePick = 1;
+    private static int ImagePick = 1;
+    private boolean isImagePicked = false;
     private Uri ImageUri;
     private String usernameee, dp, phone;
     private StorageReference TrackRefImage;
@@ -131,6 +132,7 @@ public class UserProfile extends AppCompatActivity {
                                     Log.w(TAG, "No Profile Image");
                                 } else {
                                     Picasso.get().load(userImg).into(profilePic);
+                                    ImageUri = Uri.parse(userImg);
                                     dp = userImg;
                                 }
 
@@ -162,6 +164,8 @@ public class UserProfile extends AppCompatActivity {
             ImageUri = data.getData();
             profilePic.setImageURI(ImageUri);
 
+            isImagePicked = true;
+
         }
 
     }
@@ -169,10 +173,6 @@ public class UserProfile extends AppCompatActivity {
     private void updateAccount() {
         String usernamee = username.getText().toString();
         String phonee = phoneNumber.getText().toString();
-
-        if (ImageUri == null){
-            profilePic.setImageURI(null);
-        }
 
         if (TextUtils.isEmpty(usernamee)){
             usernamee = usernameee;
@@ -191,8 +191,8 @@ public class UserProfile extends AppCompatActivity {
 
         String uid = localStorage.getUid();
 
-
-        if (!ImageUri.equals(null)){
+        if (isImagePicked){
+            Toast.makeText(this, "No img", Toast.LENGTH_SHORT).show();
             final StorageReference filepath = TrackRefImage.child(ImageUri.getLastPathSegment() + uid + ".jpg");
 
             final UploadTask uploadTask = filepath.putFile(ImageUri);
