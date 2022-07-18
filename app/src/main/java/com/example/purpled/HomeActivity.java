@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -76,6 +77,7 @@ public class HomeActivity extends AppCompatActivity
     private String songUrl;
     private String tracktitle, trackartist, trackurl, trackimg, recommendation = "";
     private FloatingActionButton floatingActionButton;
+    private Button profileBtn;
 
     @Override
     protected void onResume() {
@@ -159,7 +161,17 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View hView = navigationView.getHeaderView(0);
         userName = (TextView) hView.findViewById(R.id.username);
-        profileImageView = findViewById(R.id.user_profile);
+        profileImageView = hView.findViewById(R.id.user_profile);
+        profileBtn = hView.findViewById(R.id.profile_btn);
+
+        profileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, UserProfile.class);
+                startActivity(intent);
+            }
+        });
+
 
         askuserforpermission();
         userInfoDisplay(profileImageView, userName);

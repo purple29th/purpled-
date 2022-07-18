@@ -30,7 +30,7 @@
         <item
             android:id="@+id/upload"
             android:icon="@mipmap/upload"
-            android:title="Upload/ Record Label" />
+            android:title="Upload/My Uploads" />
 
         <item
             android:id="@+id/local_music"
