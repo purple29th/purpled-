@@ -74,7 +74,7 @@ public class Messages extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
 
-        userInfoDisplay(profildePic);
+        userInfoDisplay(binding.profilePic);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

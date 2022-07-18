@@ -466,7 +466,7 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(upload);
                 break;
 
-            case R.id.recommendations:
+            case R.id.explore:
                 Intent recommendations = new Intent(HomeActivity.this, RecommendationsNav.class);
                 startActivity(recommendations);
                 break;

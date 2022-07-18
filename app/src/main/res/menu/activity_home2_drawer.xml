@@ -10,6 +10,11 @@
             android:title="Home" />
 
         <item
+            android:id="@+id/timeline"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="TimeLine" />
+
+        <item
             android:id="@+id/albums"
             android:icon="@mipmap/music_album"
             android:title="Albums" />
@@ -43,7 +48,7 @@
             android:title="Genre" />
 
         <item
-            android:id="@+id/recommendations"
+            android:id="@+id/explore"
             android:icon="@mipmap/quality"
             android:title="Recommendations" />
 
