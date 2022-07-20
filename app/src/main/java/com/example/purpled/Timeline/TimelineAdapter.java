@@ -81,14 +81,12 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
             holder.likeamount.setVisibility(View.VISIBLE);
             holder.likeamount.setText(String.valueOf(timelineList.getLikes()));
         }
-//
 
         collectionReference.document(key).collection("myLikes").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 int likey = 0;
 
-                List<String> cities = new ArrayList<>();
                 for (QueryDocumentSnapshot doc : value) {
                     String ids = doc.getId();
                     if (ids.equals(localStorage.getUid())) {
@@ -96,6 +94,10 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
                         holder.unlikeBtn.setVisibility(View.VISIBLE);
 
                     }
+//                    else{
+//                        holder.likeBtn.setVisibility(View.VISIBLE);
+//                        holder.unlikeBtn.setVisibility(View.GONE);
+//                    }
                 }
 
                 likey = value.getDocuments().size();
@@ -131,6 +133,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             Log.d("Tag", "Okay");
+                                            holder.likeBtn.setVisibility(View.GONE);
+                                            holder.unlikeBtn.setVisibility(View.VISIBLE);
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -147,7 +151,9 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
                                     collectionReference.document(key).collection("myLikes").document(localStorage.getUid()).update(likeupdateMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            Log.d("Tag", "Okay");
+                                            Log.d("Tag", "Okay2");
+                                            holder.likeBtn.setVisibility(View.GONE);
+                                            holder.unlikeBtn.setVisibility(View.VISIBLE);
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -169,7 +175,22 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
         holder.unlikeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Do something
+                collectionReference.document(key).collection("myLikes").document(localStorage.getUid())
+                        .delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d("Tag", "Okay");
+                        holder.likeBtn.setVisibility(View.VISIBLE);
+                        holder.unlikeBtn.setVisibility(View.GONE);
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
