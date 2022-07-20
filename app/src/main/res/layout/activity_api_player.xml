@@ -121,23 +121,23 @@
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/ic_pause" />
 
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_next"
-                android:layout_marginTop="15dp"
-                android:id="@+id/nextbtn"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/playBtn"/>
+<!--            <Button-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@drawable/ic_next"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:id="@+id/nextbtn"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_toEndOf="@+id/playBtn"/>-->
 
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/ic_previous"
-                android:layout_marginTop="15dp"
-                android:id="@+id/prevbtn"
-                android:layout_marginEnd="20dp"
-                android:layout_toStartOf="@+id/playBtn"/>
+<!--            <Button-->
+<!--                android:id="@+id/prevbtn"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:layout_toStartOf="@+id/playBtn"-->
+<!--                android:background="@drawable/ic_previous" />-->
 
             <com.gauravk.audiovisualizer.visualizer.BarVisualizer
                 xmlns:custom="http://schemas.android.com/apk/res-auto"

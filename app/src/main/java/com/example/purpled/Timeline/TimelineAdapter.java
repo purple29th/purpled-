@@ -2,10 +2,13 @@ package com.example.purpled.Timeline;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.purpled.ApiPlayer;
 import com.example.purpled.LocalStorage;
 import com.example.purpled.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,12 +37,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyViewHolder> {
 
     private List<TimelineList> timelineLists;
     private final Context context;
     LocalStorage localStorage;
+    public static MediaPlayer mediaPlayer;
 
     public TimelineAdapter(Context ctx){
 
@@ -57,6 +63,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         localStorage = new LocalStorage(context);
+        mediaPlayer = new MediaPlayer();
 
         CollectionReference collectionReference = FirebaseFirestore.getInstance().collection("tracks");
 
@@ -193,6 +200,28 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
                 });
             }
         });
+
+//        if (timelineList.getUrl() != null) {
+//            try {
+//                mediaPlayer.setDataSource(timelineList.getUrl());
+//                mediaPlayer.prepare();
+//                Toast.makeText(context, "Loaded", Toast.LENGTH_SHORT).show();
+//            } catch (Exception e) {
+//                Timber.tag("Try Song Url").e(e.getMessage());
+//            }
+//        }
+
+        holder.playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ApiPlayer.class);
+                view.getContext().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .putExtra("trackArtist", timelineList.getUsername())
+                        .putExtra("trackTitle", timelineList.getTrackname())
+                        .putExtra("trackImage", timelineList.getImage())
+                        .putExtra("trackUrl", timelineList.getUrl()));
+            }
+        });
     }
 
     public void add(TimelineList timelineList){
@@ -210,6 +239,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
         private TextView userName, trackname, genre, description, timestamp, likeamount;
         private ImageView trackImg, likeBtn, unlikeBtn;
         private CircleImageView dp;
+        private ImageButton playBtn;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -224,6 +254,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
             timestamp = itemView.findViewById(R.id.posttime);
             likeBtn = itemView.findViewById(R.id.like);
             unlikeBtn = itemView.findViewById(R.id.unlike);
+            playBtn = itemView.findViewById(R.id.play_btn);
         }
 
     }
