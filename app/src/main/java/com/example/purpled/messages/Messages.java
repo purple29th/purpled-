@@ -87,6 +87,11 @@ public class Messages extends AppCompatActivity {
                         UserId = uid;
                         String username = dataSnapshot.child("username").getValue(String.class);
                         String email = dataSnapshot.child("email").getValue(String.class);
+                        String profilePic = "";
+
+                        if (dataSnapshot.hasChild("userProfile")){
+                            profilePic = dataSnapshot.child("userProfile").getValue(String.class);
+                        }
 //                       Users users =  new Users("","","","","",username,UserId);
 //                       messagesAdapter.add(users);
 
@@ -156,7 +161,7 @@ public class Messages extends AppCompatActivity {
                             }
                         });
 
-                        Users users = new Users("", "", "", "", "", username, UserId, email);
+                        Users users = new Users("", "", "", "", profilePic, username, UserId, email);
                         messagesAdapter.add(users);
 
                     }

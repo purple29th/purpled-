@@ -50,7 +50,7 @@
         <item
             android:id="@+id/explore"
             android:icon="@mipmap/quality"
-            android:title="Recommendations" />
+            android:title="Explore" />
 
 
         <item

@@ -193,7 +193,7 @@ public class UploadActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HHmmss");
         saveCurrentTime = currentTime.format(calendar.getTime());
 
-        SimpleDateFormat currentDate2 = new SimpleDateFormat("dd:MM:yyyy");
+        SimpleDateFormat currentDate2 = new SimpleDateFormat("dd MMM yy");
         saveCurrentDate2 = currentDate2.format(calendar.getTime());
 
         SimpleDateFormat currentTime2 = new SimpleDateFormat("HH:mm aa");

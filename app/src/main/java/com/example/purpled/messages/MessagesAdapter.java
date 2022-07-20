@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyViewHolder> {
 
@@ -59,6 +62,14 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
             }
         });
 
+        if (usersmodel.getImage().isEmpty()) {
+            Log.d("Tag", "no  img");
+//            holder.userImage.setImageResource(R.drawable.placeholder);
+        } else{
+            Picasso.get().load(usersmodel.getImage()).into(holder.userImage);
+        }
+//
+
     }
 
     public void add(Users userslist){
@@ -79,7 +90,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     static class MyViewHolder extends RecyclerView.ViewHolder{
 
         private TextView userName, lastMessage, unseenMessage;
-        private ImageView userImage;
+        private CircleImageView userImage;
         private LinearLayout eachMsg;
 
         public MyViewHolder(View itemView) {
@@ -88,7 +99,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
             userName = (TextView) itemView.findViewById(R.id.userName);
             lastMessage = (TextView) itemView.findViewById(R.id.lastMessages);
             unseenMessage = (TextView) itemView.findViewById(R.id.unseenmessages);
-            userImage = (ImageView) itemView.findViewById(R.id.profilePic);
+            userImage = (CircleImageView) itemView.findViewById(R.id.profilePic);
             eachMsg = itemView.findViewById(R.id.rootlayout);
         }
 

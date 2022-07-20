@@ -26,9 +26,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.purpled.Timeline.TimeLine;
 import com.example.purpled.messages.Messages;
 import com.example.purpled.model.SongListClass;
-import com.example.purpled.model.Users;
 import com.example.purpled.viewholder.SongListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -454,7 +454,6 @@ public class HomeActivity extends AppCompatActivity
             case R.id.timeline:
                 Intent timeline = new Intent(HomeActivity.this, TimeLine.class);
                 startActivity(timeline);
-                finish();
                 break;
 
             case R.id.albums:

@@ -26,6 +26,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -184,6 +186,7 @@ public class UserProfile extends AppCompatActivity {
         progressDialog.setMessage( "Please wait...." );
         progressDialog.setCanceledOnTouchOutside( false );
         progressDialog.show();
+
         update(usernamee, phonee, profilePic);
     }
 
@@ -192,7 +195,6 @@ public class UserProfile extends AppCompatActivity {
         String uid = localStorage.getUid();
 
         if (isImagePicked){
-            Toast.makeText(this, "No img", Toast.LENGTH_SHORT).show();
             final StorageReference filepath = TrackRefImage.child(ImageUri.getLastPathSegment() + uid + ".jpg");
 
             final UploadTask uploadTask = filepath.putFile(ImageUri);
@@ -247,6 +249,9 @@ public class UserProfile extends AppCompatActivity {
         CollectionReference collectionReference = FirebaseFirestore.getInstance()
                 .collection("Users");
 
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+
+
         collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -255,10 +260,20 @@ public class UserProfile extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    progressDialog.dismiss();
-                                    finish();
-                                    Toast.makeText(UserProfile.this, "Update was successful", Toast.LENGTH_SHORT).show();
-                                }
+                                    db.child("users").child(localStorage.getUid()).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            progressDialog.dismiss();
+                                            finish();
+                                            Toast.makeText(UserProfile.this, "Update was successful", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+                                   }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
@@ -287,6 +302,7 @@ public class UserProfile extends AppCompatActivity {
 
         CollectionReference collectionReference = FirebaseFirestore.getInstance()
                 .collection("Users");
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
         collectionReference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -296,10 +312,21 @@ public class UserProfile extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    progressDialog.dismiss();
-                                    finish();
-                                    Toast.makeText(UserProfile.this, "Update was successful", Toast.LENGTH_SHORT).show();
-                                }
+                                    db.child("users").child(localStorage.getUid()).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            progressDialog.dismiss();
+                                            finish();
+                                            Toast.makeText(UserProfile.this, "Update was successful", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+
+                                    }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
