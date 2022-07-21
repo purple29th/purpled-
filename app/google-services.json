@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "573488963052",
-    "project_id": "purpled-aa678",
-    "storage_bucket": "purpled-aa678.appspot.com"
+    "project_number": "540098486651",
+    "project_id": "purpled2-bd501",
+    "storage_bucket": "purpled2-bd501.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:573488963052:android:3dcdd2ae86e608ebd474c9",
+        "mobilesdk_app_id": "1:540098486651:android:a7e8ba6cf90cae18265dde",
         "android_client_info": {
           "package_name": "com.example.purpled"
         }
       },
       "oauth_client": [
         {
-          "client_id": "573488963052-0btklmas282o2pnpdovm41a805r2njig.apps.googleusercontent.com",
+          "client_id": "540098486651-km7hvv8ooe8guk39pf7s4e8treqqol1r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCAKjSLj5B-nMB56GGA94qoGQTJieWQNE8"
+          "current_key": "AIzaSyDwH6-uzbPAwyrwwgnnTCpxrFI25XvRtwc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "573488963052-0btklmas282o2pnpdovm41a805r2njig.apps.googleusercontent.com",
+              "client_id": "540098486651-km7hvv8ooe8guk39pf7s4e8treqqol1r.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
