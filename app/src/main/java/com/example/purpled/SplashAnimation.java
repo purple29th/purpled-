@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ public class SplashAnimation extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
         if (!sharedpreferences.getBoolean(localStorage.getOneTimeState2(), false)) {
-            Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show();
+            Log.d("wlc", "Welcome");
         } else {
             moveToSecondary();
         }
