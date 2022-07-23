@@ -17,6 +17,7 @@ public class LocalStorage {
     String trackUrl;
     String tracks;
     String oneTimeState = "yes";
+    String oneTimeState2 = "yes";
     String myGenre;
 
     public LocalStorage(Context context) {
@@ -30,10 +31,21 @@ public class LocalStorage {
         return oneTimeState;
     }
 
+    public String getOneTimeState2() {
+        oneTimeState2 = sharedPreferences.getString("ONETIMESTATE2", "");
+        return oneTimeState2;
+    }
+
     public void setOneTimeState(String oneTimeState) {
         editor.putString("ONETIMESTATE", oneTimeState);
         editor.commit();
         this.oneTimeState = oneTimeState;
+    }
+
+    public void setOneTimeState2(String oneTimeState2) {
+        editor.putString("ONETIMESTATE2", oneTimeState2);
+        editor.commit();
+        this.oneTimeState2 = oneTimeState2;
     }
 
     public String getMyGenre() {

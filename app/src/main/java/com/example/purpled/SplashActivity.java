@@ -43,7 +43,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startApp(){
-        Intent homeintent = new Intent( SplashActivity.this, LoginActivity.class );
+        Intent homeintent = new Intent( SplashActivity.this, SplashAnimation.class );
         startActivity( homeintent );
 
     }
