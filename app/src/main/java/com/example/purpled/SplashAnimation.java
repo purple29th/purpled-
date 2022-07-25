@@ -23,7 +23,7 @@ public class SplashAnimation extends AppCompatActivity {
         super.onResume();
         sharedpreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
-        if (!sharedpreferences.getBoolean(localStorage.getOneTimeState2(), false)) {
+        if (!sharedpreferences.getBoolean(localStorage.getOneTimeState(), false)) {
             Log.d("wlc", "Welcome");
         } else {
             moveToSecondary();
@@ -40,9 +40,9 @@ public class SplashAnimation extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putBoolean(localStorage.getOneTimeState2(), Boolean.TRUE);
-                editor.apply();
+//                SharedPreferences.Editor editor = sharedpreferences.edit();
+//                editor.putBoolean(localStorage.getOneTimeState2(), Boolean.TRUE);
+//                editor.apply();
                 Intent intent = new Intent(SplashAnimation.this, LoginActivity.class);
                 startActivity(intent);
                 finish();

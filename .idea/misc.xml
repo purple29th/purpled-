@@ -43,7 +43,7 @@
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/drawable/opp_msg_back.xml" value="0.162" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/drawable/textarea_bg.xml" value="0.173" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/drawable/unlike.xml" value="0.1245" />
-        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_albums_acivity.xml" value="0.3351851851851852" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_albums_acivity.xml" value="0.22" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_api_player.xml" value="0.25" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_chat_acivity.xml" value="0.18" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_chat_home.xml" value="0.20833333333333334" />
@@ -56,6 +56,7 @@
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_messages.xml" value="0.209375" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_my_uploads.xml" value="0.25" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_one_time.xml" value="0.25" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_play_list.xml" value="0.18" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_recommendations.xml" value="0.1" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_recommendations_nav.xml" value="0.22" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_register.xml" value="0.2574074074074074" />
@@ -64,14 +65,17 @@
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_time_line.xml" value="0.2125" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_upload.xml" value="0.22" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/activity_user_profile.xml" value="0.25" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/album_viewholder.xml" value="0.18" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/app_bar_home.xml" value="0.171875" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/chat_adapter_layout.xml" value="0.1796875" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/content_album.xml" value="0.2" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/content_home.xml" value="0.22" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/fragment_blank.xml" value="0.1953125" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/fragment_home.xml" value="0.19130434782608696" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/local_music.xml" value="0.18911174785100288" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/messages_viewholder.xml" value="0.2" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/nav_header_home.xml" value="0.209375" />
+        <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/playlist_viewholder.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/song_list_viewholder.xml" value="0.25" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/timeline_viewholder.xml" value="0.22" />
         <entry key="..\:/Users/USER/Desktop/Projects/purpledproject2/app/src/main/res/layout/uploads_viewholder.xml" value="0.25" />

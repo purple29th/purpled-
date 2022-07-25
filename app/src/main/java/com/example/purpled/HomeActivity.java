@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.purpled.Timeline.TimeLine;
+import com.example.purpled.playlist.PlayListActivity;
 import com.example.purpled.messages.Messages;
 import com.example.purpled.model.SongListClass;
 import com.example.purpled.viewholder.SongListAdapter;
@@ -177,7 +178,7 @@ public class HomeActivity extends AppCompatActivity
 
 
         askuserforpermission();
-
+        checkSpotify();
     }
 
     @Override
@@ -456,6 +457,11 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(timeline);
                 break;
 
+            case R.id.playlist:
+                Intent playlist = new Intent(HomeActivity.this, PlayListActivity.class);
+                startActivity(playlist);
+                break;
+
             case R.id.albums:
                 Intent album = new Intent(HomeActivity.this, AlbumsAcivity.class);
                 startActivity(album);
@@ -473,7 +479,7 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(upload);
                 break;
 
-            case R.id.explore:
+            case R.id.genre:
                 Intent recommendations = new Intent(HomeActivity.this, RecommendationsNav.class);
                 startActivity(recommendations);
                 break;

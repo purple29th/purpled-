@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.purpled.Timeline.TimeLine;
+import com.example.purpled.playlist.PlayListActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -55,6 +57,7 @@ public class LocalMusic extends AppCompatActivity
     String[] items;
     LocalStorage localStorage;
     static MediaPlayer mediaPlayer;
+    private static long back_pressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +172,17 @@ public class LocalMusic extends AppCompatActivity
     }
 
     @Override
+    public void onBackPressed() {
+        if (back_pressed + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit", Toast.LENGTH_SHORT).show();
+            back_pressed = System.currentTimeMillis();
+        }
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (mToggle.onOptionsItemSelected(item)) {
@@ -188,6 +202,38 @@ public class LocalMusic extends AppCompatActivity
                 finish();
                 break;
 
+            case R.id.timeline:
+                Intent timeline = new Intent(LocalMusic.this, TimeLine.class);
+                startActivity(timeline);
+                break;
+
+            case R.id.playlist:
+                Intent playlist = new Intent(LocalMusic.this, PlayListActivity.class);
+                startActivity(playlist);
+                break;
+
+            case R.id.albums:
+                Intent album = new Intent(LocalMusic.this, AlbumsAcivity.class);
+                startActivity(album);
+                finish();
+                break;
+
+            case R.id.local_music:
+                Intent localmusic = new Intent(LocalMusic.this, LocalMusic.class);
+                startActivity(localmusic);
+                finish();
+                break;
+
+            case R.id.upload:
+                Intent upload = new Intent(LocalMusic.this, UploadActivity.class);
+                startActivity(upload);
+                break;
+
+            case R.id.genre:
+                Intent recommendations = new Intent(LocalMusic.this, RecommendationsNav.class);
+                startActivity(recommendations);
+                break;
+
             case R.id.logout:
                 Paper.book().destroy();
                 Intent logout = new Intent(LocalMusic.this, LoginActivity.class);
@@ -195,6 +241,8 @@ public class LocalMusic extends AppCompatActivity
                 startActivity(logout);
                 finish();
                 break;
+
+
 
         }
         return false;

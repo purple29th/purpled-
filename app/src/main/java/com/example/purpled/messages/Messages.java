@@ -88,8 +88,9 @@ public class Messages extends AppCompatActivity {
                         String username = dataSnapshot.child("username").getValue(String.class);
                         String email = dataSnapshot.child("email").getValue(String.class);
                         String profilePic = "";
+                        final String[] lastMsg = {""};
 
-                        if (dataSnapshot.hasChild("userProfile")){
+                        if (dataSnapshot.hasChild("userProfile")) {
                             profilePic = dataSnapshot.child("userProfile").getValue(String.class);
                         }
 //                       Users users =  new Users("","","","","",username,UserId);
@@ -97,6 +98,7 @@ public class Messages extends AppCompatActivity {
 
                         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("chats");
 
+                        String finalProfilePic = profilePic;
                         db.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -111,26 +113,27 @@ public class Messages extends AppCompatActivity {
 
                                         for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
                                             final String getKey2 = dataSnapshot2.getKey();
-
-
-                                            getUserOne = dataSnapshot2.child("senderId").getValue(String.class);
-                                            getUserTwo = dataSnapshot2.child("receiverId").getValue(String.class);
-//                                               Toast.makeText(Messages.this, getUserOne, Toast.LENGTH_SHORT).show();
+                                            Log.d("snapshot2", getKey2);
 
 
                                             if (dataSnapshot2.hasChild("senderId") && dataSnapshot2.hasChild("receiverId")
                                                     && dataSnapshot2.hasChild("message")) {
 
-                                                if (getUserOne.equals(localStorage.getUid()) && getUserTwo.equals(UserId) || getUserOne.equals(UserId) && getUserTwo.equals(localStorage.getUid())) {
+                                                    getUserOne = dataSnapshot2.child("senderId").getValue(String.class);
+                                                    getUserTwo = dataSnapshot2.child("receiverId").getValue(String.class);
 
-                                                    for (DataSnapshot chatDataSnapshot : dataSnapshot1.getChildren()) {
+
+                                                    Log.d("tag uids", getUserOne+" and "+getUserTwo);
+                                                    if (getUserOne.equals(localStorage.getUid()) && getUserTwo.equals(UserId)
+                                                            || getUserOne.equals(UserId) && getUserTwo.equals(localStorage.getUid())) {
+
 //                                                        chatDataSnapshot.getRef().orderByKey().limitToLast(1);
 
 //                                                        final long getMsgKey = Long.parseLong(chatDataSnapshot.getKey());
 //                                                        final long getLastSeenMsg = Long.parseLong(MemoryData.getLastMsgTs(Messages.this, getKey));
 
-
-                                                        lastMessage = chatDataSnapshot.child("message").getValue(String.class);
+                                                        lastMessage = dataSnapshot2.child("message").getValue(String.class);
+                                                        Log.d("lastmsg", lastMessage);
 
 //                                                    Toast.makeText(Messages.this, lastMessage, Toast.LENGTH_SHORT).show();
 
@@ -142,7 +145,6 @@ public class Messages extends AppCompatActivity {
                                                     }
 
 
-                                                }
 
                                             }
                                         }
@@ -160,8 +162,7 @@ public class Messages extends AppCompatActivity {
 
                             }
                         });
-
-                        Users users = new Users("", "", "", "", profilePic, username, UserId, email);
+                        Users users = new Users("", "", "", "", finalProfilePic, username, UserId, email);
                         messagesAdapter.add(users);
 
                     }
