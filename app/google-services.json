@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "540098486651",
+    "firebase_url": "https://purpled2-bd501-default-rtdb.firebaseio.com",
     "project_id": "purpled2-bd501",
     "storage_bucket": "purpled2-bd501.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "540098486651-24oduiifqrriqp371cfme4c4ehh2ai4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.purpled",
+            "certificate_hash": "02380f0a827f9ef3bc14e06e4ab19e72fbae10af"
+          }
+        },
         {
           "client_id": "540098486651-km7hvv8ooe8guk39pf7s4e8treqqol1r.apps.googleusercontent.com",
           "client_type": 3

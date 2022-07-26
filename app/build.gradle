@@ -80,4 +80,5 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:5.2.0'
 
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 }

@@ -36,6 +36,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -485,16 +486,23 @@ public class HomeActivity extends AppCompatActivity
                 break;
 
             case R.id.logout:
-                Paper.book().destroy();
-                Intent logout = new Intent(HomeActivity.this, LoginActivity.class);
-                logout.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(logout);
-                finish();
+
+                googleSignout();
                 break;
 
 
 
         }
         return false;
+    }
+
+    private void googleSignout() {
+        FirebaseAuth.getInstance().signOut();
+
+        Paper.book().destroy();
+        Intent logout = new Intent(HomeActivity.this, LoginActivity.class);
+        logout.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(logout);
+        finish();
     }
 }
