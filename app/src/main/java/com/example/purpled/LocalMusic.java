@@ -104,7 +104,8 @@ public class LocalMusic extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        displaySong();
+        askuserforpermission();
+
     }
 
     public ArrayList<File> findSongs(File file) {
@@ -128,10 +129,28 @@ public class LocalMusic extends AppCompatActivity
 
             }
         }else{
-            Toast.makeText(this, "You have no audio file", Toast.LENGTH_SHORT).show();
+//            askuserforpermission();
+            Toast.makeText(this, "You have no audio files or permission not granted", Toast.LENGTH_SHORT).show();
         }
         return arrayList;
     }
+
+    public void askuserforpermission() {
+        Dexter.withContext(this).withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+                        displaySong();
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                        permissionToken.continuePermissionRequest();
+                    }
+                }).check();
+    }
+
+
 
     public void displaySong() {
         final ArrayList<File> mysongs = findSongs(Environment.getExternalStorageDirectory());
