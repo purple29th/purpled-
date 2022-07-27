@@ -82,6 +82,8 @@ public class LoginActivity extends AppCompatActivity {
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
 
+            localStorage.setUid(currentUser.getUid());
+
             logmein();
         }
     }
@@ -242,7 +244,7 @@ public class LoginActivity extends AppCompatActivity {
                firebaseAuthWithGoogle(account);
 
            } catch (ApiException e) {
-               Toast.makeText(this, " not good"+e.getMessage(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(this, " not good"+ e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
            }
        }
     }
@@ -257,6 +259,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            localStorage.setUid(user.getUid());
                             progressDialog.setTitle("Already logged in with google");
                             progressDialog.setMessage("Please wait....");
                             progressDialog.setCanceledOnTouchOutside(false);
@@ -301,7 +304,6 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
 //                });
 //    }
-
 
     private void AllowAccess(final String UserEmail, final String UserPassword) {
         FirebaseApp.initializeApp(LoginActivity.this);
