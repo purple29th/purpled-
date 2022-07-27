@@ -98,20 +98,24 @@ public class LocalMusic extends AppCompatActivity
         ArrayList<File> arrayList = new ArrayList<>();
         File[] files = file.listFiles();
 
-        for (File singleFile : files) {
-            if (
-                    singleFile.isDirectory() &&
-                            !singleFile.isHidden()
-            ) {
-                arrayList.addAll(findSongs(singleFile));
-            } else {
-                if (singleFile.getName().endsWith(".mp3")) {
-                    arrayList.add(singleFile);
+        if(!(files == null)){
+            for (File singleFile : files) {
+                if (
+                        singleFile.isDirectory() &&
+                                !singleFile.isHidden()
+                ) {
+                    arrayList.addAll(findSongs(singleFile));
+                } else {
+                    if (singleFile.getName().endsWith(".mp3")) {
+                        arrayList.add(singleFile);
+                    }
+
+
                 }
 
-
             }
-
+        }else{
+            Toast.makeText(this, "You have no audio file", Toast.LENGTH_SHORT).show();
         }
         return arrayList;
     }
