@@ -37,7 +37,7 @@
         <item
             android:id="@+id/genre"
             android:icon="@mipmap/dj"
-            android:title="Genre" />
+            android:title="Genre/Explore" />
 
 <!--        <item-->
 <!--            android:id="@+id/explore"-->
