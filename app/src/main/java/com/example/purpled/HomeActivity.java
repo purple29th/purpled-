@@ -31,6 +31,9 @@ import com.example.purpled.playlist.PlayListActivity;
 import com.example.purpled.messages.Messages;
 import com.example.purpled.model.SongListClass;
 import com.example.purpled.viewholder.SongListAdapter;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -80,6 +83,7 @@ public class HomeActivity extends AppCompatActivity
     private String tracktitle, trackartist, trackurl, trackimg, recommendation = "";
     private FloatingActionButton floatingActionButton;
     private Button profileBtn;
+    GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onResume() {
@@ -123,6 +127,14 @@ public class HomeActivity extends AppCompatActivity
 
         recommendation = localStorage.getMyGenre();
         floatingActionButton = findViewById(R.id.fab);
+
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(
+                GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.web_client_id))
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -498,6 +510,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void googleSignout() {
         FirebaseAuth.getInstance().signOut();
+        googleSignInClient.signOut();
 
         Paper.book().destroy();
         Intent logout = new Intent(HomeActivity.this, LoginActivity.class);
