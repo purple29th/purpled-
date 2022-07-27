@@ -32,11 +32,15 @@ import com.example.purpled.album.AlbumListClass;
 import com.example.purpled.messages.Messages;
 import com.example.purpled.model.SongListClass;
 import com.example.purpled.viewholder.SongListAdapter;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -74,6 +78,7 @@ public class AlbumsAcivity extends AppCompatActivity
     private String songUrl;
     private String tracktitle, trackartist, trackurl, trackimg, recommendation = "";
     private Button profileBtn;
+    private GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onResume() {
@@ -121,6 +126,14 @@ public class AlbumsAcivity extends AppCompatActivity
         userName = (TextView) hView.findViewById(R.id.username);
         profileImageView = hView.findViewById(R.id.user_profile);
         profileBtn = hView.findViewById(R.id.profile_btn);
+
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(
+                GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.web_client_id))
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -374,6 +387,9 @@ public class AlbumsAcivity extends AppCompatActivity
                 break;
 
             case R.id.logout:
+                FirebaseAuth.getInstance().signOut();
+                googleSignInClient.signOut();
+
                 Paper.book().destroy();
                 Intent logout = new Intent(AlbumsAcivity.this, LoginActivity.class);
                 logout.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

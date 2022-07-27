@@ -26,7 +26,11 @@ import android.widget.Toast;
 
 import com.example.purpled.Timeline.TimeLine;
 import com.example.purpled.playlist.PlayListActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -58,6 +62,7 @@ public class LocalMusic extends AppCompatActivity
     LocalStorage localStorage;
     static MediaPlayer mediaPlayer;
     private static long back_pressed;
+    private GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,14 @@ public class LocalMusic extends AppCompatActivity
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
+
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(
+                GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.web_client_id))
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
@@ -239,6 +252,9 @@ public class LocalMusic extends AppCompatActivity
                 break;
 
             case R.id.logout:
+                FirebaseAuth.getInstance().signOut();
+                googleSignInClient.signOut();
+
                 Paper.book().destroy();
                 Intent logout = new Intent(LocalMusic.this, LoginActivity.class);
                 logout.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
